@@ -1,8 +1,11 @@
 import SpriteKit
 
-final class EmissionNode: SKNode {
+final class EmissionNode: GridNode {
     // MARK: - Childnodes
-    private lazy var spriteNode: SKSpriteNode = SKSpriteNode(fileNamed: "Images/Nodes/Emission/Emission")!
+    //private lazy var spriteNode: SKSpriteNode = SKSpriteNode(imageNamed: "Images/Nodes/Emission/Emission")
+    private lazy var shapeNode = SKShapeNode(circleOfRadius: sizePerGrid.width / 8)
+
+    var moveDirection: GridDirection = .right
 
     // MARK: - Initialization
     override init() {
@@ -10,13 +13,10 @@ final class EmissionNode: SKNode {
         configureNode()
     }
 
-    @available(*, unavailable)
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     // MARK: - Configuration
     private func configureNode() {
-        addChild(spriteNode)
+        addChild(shapeNode)
+        shapeNode.fillColor = .flickrPink
+        shapeNode.strokeColor = .flickrPink
     }
 }

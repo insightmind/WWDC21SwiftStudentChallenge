@@ -12,13 +12,13 @@ enum GridDirection {
             return .init(dx: -1, dy: 0)
 
         case .up:
-            return .init(dx: 0, dy: 1)
+            return .init(dx: 0, dy: -1)
 
         case .right:
             return .init(dx: 1, dy: 0)
 
         case .down:
-            return .init(dx: 0, dy: -1)
+            return .init(dx: 0, dy: 1)
         }
     }
 }

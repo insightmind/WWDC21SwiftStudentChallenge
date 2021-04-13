@@ -1,43 +1,31 @@
 import SpriteKit
 
 class GameScene: FlowableScene {
+    // MARK: - Properties
+    private let tickDuration: TimeInterval = 0.6
+    private var tickCount: Int = 0
+    private var timer: Timer?
+
     // MARK: - Nodes
     private lazy var gridWorld: GridWorldNode = .init(size: size, world: .init())
+    private let emitter: StaticEmitterNode = .init()
 
     override func configureScene() {
         super.configureScene()
         addChild(gridWorld)
+        gridWorld.position = .init(x: -size.width / 2, y: -size.height / 2)
+
+        addChild(emitter)
+
+        timer = Timer.scheduledTimer(withTimeInterval: tickDuration, repeats: true) { [weak self] timer in
+            guard let self = self else { return }
+            self.tickUpdate()
+        }
     }
 
-    func touchDown(atPoint pos : CGPoint) {
-        // TODO: Implement this
-    }
+    private func tickUpdate() {
+        tickCount += 1
 
-    func touchMoved(toPoint pos : CGPoint) {
-        // TODO: Implement this
-    }
-
-    func touchUp(atPoint pos : CGPoint) {
-        // TODO: Implement this
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { touchDown(atPoint: t.location(in: self)) }
-    }
-
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { touchMoved(toPoint: t.location(in: self)) }
-    }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { touchUp(atPoint: t.location(in: self)) }
-    }
-
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { touchUp(atPoint: t.location(in: self)) }
-    }
-
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        emitter.onTick(tickCount: tickCount)
     }
 }
