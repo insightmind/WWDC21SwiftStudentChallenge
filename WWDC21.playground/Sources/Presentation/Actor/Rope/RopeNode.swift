@@ -26,7 +26,12 @@ public class RopeNode: SKSpriteNode {
 //            curveRadius: 50
 //        )
 
-        let circleSegment = CircleAnchorSegmentNode(circleCenter: linearSegment.endPoint.add(.init(x: 0, y: -50)), radius: 50)
+        let circleSegment = CircleAnchorSegmentNode(
+            circleCenter: linearSegment.endPoint.add(.init(x: 0, y: 50)),
+            radius: 50,
+            enterDirection: startPoint.difference(to: linearSegment.endPoint)
+        )
+
         self.segments = .init(base: linearSegment)
         segments.push(circleSegment)
 

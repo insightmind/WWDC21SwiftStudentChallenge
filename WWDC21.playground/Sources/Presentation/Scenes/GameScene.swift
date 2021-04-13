@@ -13,7 +13,7 @@ class GameScene: FlowableScene {
         thirdRope.keyColor = .charcoal
 
         addChild(anchorNode)
-        anchorNode.position = thirdRope.position.add(.init(x: 100 + self.size.width / 2, y: -50 + self.size.height / 2))
+        anchorNode.position = thirdRope.position.add(.init(x: 100 + self.size.width / 2, y: 50 + self.size.height / 2))
         anchors.append(anchorNode)
     }
 

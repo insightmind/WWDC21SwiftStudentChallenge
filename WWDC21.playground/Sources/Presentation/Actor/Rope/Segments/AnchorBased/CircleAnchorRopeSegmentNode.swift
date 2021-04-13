@@ -5,11 +5,13 @@ import SpriteKit
 final class CircleAnchorSegmentNode: RopeSegmentNode {
     private let circleCenter: CGPoint
     private let radius: CGFloat
+    private let enterDirection: CGPoint
 
     // MARK: - Initialization
-    init(circleCenter: CGPoint, radius: CGFloat) {
+    init(circleCenter: CGPoint, radius: CGFloat, enterDirection: CGPoint) {
         self.circleCenter = circleCenter
         self.radius = radius
+        self.enterDirection = enterDirection.normalized()
 
         super.init()
     }
@@ -17,7 +19,7 @@ final class CircleAnchorSegmentNode: RopeSegmentNode {
     // MARK: - Drawing
     override func drawPath(path: CGMutablePath) -> CGMutablePath {
         let relativeStartPoint = circleCenter.difference(to: path.currentPoint)
-        let clockwise = isClockwise(tangentPoint: circleCenter.difference(to: path.currentPoint), tangentDirection: .init(x: 1, y: 0))
+        let clockwise = isClockwise(tangentPoint: circleCenter.difference(to: path.currentPoint), tangentDirection: enterDirection)
 
         // Find valid exit points for the circle
         guard let tangentPoint = resolveTangentPoint(clockwise: clockwise) else {
@@ -28,16 +30,14 @@ final class CircleAnchorSegmentNode: RopeSegmentNode {
         let startAngle = angleOnCircle(for: path.currentPoint, circleCenter: circleCenter)
         let startDirection = relativeStartPoint.normalized()
         let endDirection = tangentPoint.normalized()
-        let angle = atan2(
-            startDirection.x * endDirection.y - startDirection.y * endDirection.x,
-            startDirection.x * endDirection.x - startDirection.y * endDirection.y
-        )
+        let angle = angleBetween(first: startDirection, second: endDirection)
 
         //let radiusSquared = pow(radius, 2)
         //let angle = acos((2 * radiusSquared - pow(relativeStartPoint.difference(to: tangentPoint).length(), 2)) / (2 * radiusSquared))
         //path.addArc(center: circleCenter, radius: radius, startAngle: startAngle, endAngle: startAngle + angle, clockwise: !clockwise)
         print("Start: \(startAngle / .pi) -> End \((.pi - angle) / .pi)")
-        path.addRelativeArc(center: circleCenter, radius: radius, startAngle: startAngle, delta: -(angle + .pi))
+        print("Clockwise: \(clockwise)")
+        path.addRelativeArc(center: circleCenter, radius: radius, startAngle: startAngle, delta: clockwise ? -(angle + .pi) : (angle + .pi))
         path.addLine(to: endPoint)
         return path
     }
@@ -60,8 +60,13 @@ final class CircleAnchorSegmentNode: RopeSegmentNode {
 
     // MARK: - Helper Methods
     private func angleOnCircle(for point: CGPoint, circleCenter: CGPoint) -> CGFloat {
-        let pointDirection = circleCenter.difference(to: point).normalized()
-        return atan(pointDirection.y / pointDirection.x)
+        return angleBetween(first: .init(x: 1, y: 0), second: circleCenter.difference(to: point).normalized())
+    }
+
+    private func angleBetween(first firstVector: CGPoint, second secondVector: CGPoint) -> CGFloat {
+        let first = firstVector.normalized()
+        let second = secondVector.normalized()
+        return atan2(first.x * second.y - first.y * second.x, first.x * second.x - first.y * second.y)
     }
 
     private func tangentPointOnCircle(for refPoint: CGPoint, radius: CGFloat) -> (first: CGPoint, second: CGPoint)? {
@@ -86,11 +91,11 @@ final class CircleAnchorSegmentNode: RopeSegmentNode {
     }
 
     private func isClockwise(tangentPoint: CGPoint, tangentDirection: CGPoint) -> Bool {
-        let clockwiseDirection = CGPoint(
-            x: tangentPoint.x * cos(.pi / 2) - tangentPoint.y * sin(.pi / 2),
-            y: tangentPoint.x * sin(.pi / 2) + tangentPoint.y * cos(.pi / 2)
-        ).normalized()
+        let angle = atan2(
+            tangentPoint.x * tangentDirection.y - tangentPoint.y * tangentDirection.x,
+            tangentPoint.x * tangentDirection.x - tangentPoint.y * tangentDirection.y
+        )
 
-        return clockwiseDirection.x * tangentDirection.x > 0 && clockwiseDirection.y * tangentDirection.y > 0
+        return angle < 0
     }
 }
