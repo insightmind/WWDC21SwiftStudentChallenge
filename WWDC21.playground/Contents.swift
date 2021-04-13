@@ -1,8 +1,8 @@
 /*:
- ![Logo](Images/Playground/Connect_Logo.png)
+ ![Logo](Images/Playground/QuantumControl_Logo.png width="700")
  */
 
 import PlaygroundSupport
 
-let game = RopeGame()
+let game = QuantumControlGame()
 PlaygroundSupport.PlaygroundPage.current.setLiveView(game)

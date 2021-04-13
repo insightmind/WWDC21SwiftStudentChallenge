@@ -4,8 +4,7 @@ import Foundation
 import SpriteKit
 import PlaygroundSupport
 
-/// The main class for the game which has to referenced to play the game.
-public class RopeGame: PlaygroundLiveViewable {
+public class QuantumControlGame: PlaygroundLiveViewable {
     // MARK: - Properties
     private let viewSize: CGSize = CGSize(width: 800, height: 800)
     private var gameState: GameState = .game

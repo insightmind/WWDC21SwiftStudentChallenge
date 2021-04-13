@@ -1,38 +1,22 @@
 import SpriteKit
 
 class GameScene: FlowableScene {
-    private lazy var thirdRope: RopeNode = .init(startAnchor: .init(x: 0, y: self.size.height / 2), size: self.size)
-
-    private lazy var firstAnchor: CircleAnchor = .init(position: .zero)
-    private lazy var secondAnchor: CircleAnchor = .init(position: .zero)
-
-    private var anchors: [CircleAnchor] = []
-
     override func configureScene() {
         super.configureScene()
 
-        addChild(thirdRope)
-        thirdRope.keyColor = .charcoal
-
-        addChild(firstAnchor)
-        firstAnchor.position = .init(x: self.size.width * 0.5, y: self.size.height * 0.75)
-        anchors.append(firstAnchor)
-
-        addChild(secondAnchor)
-        secondAnchor.position = .init(x: self.size.width * 0.5, y: self.size.height * 0.25)
-        anchors.append(secondAnchor)
+        // TODO: Implement this
     }
 
     func touchDown(atPoint pos : CGPoint) {
-        thirdRope.updateEndPoint(pos, anchors: anchors)
+        // TODO: Implement this
     }
 
     func touchMoved(toPoint pos : CGPoint) {
-        thirdRope.updateEndPoint(pos, anchors: anchors)
+        // TODO: Implement this
     }
 
     func touchUp(atPoint pos : CGPoint) {
-        thirdRope.updateEndPoint(pos, anchors: anchors)
+        // TODO: Implement this
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

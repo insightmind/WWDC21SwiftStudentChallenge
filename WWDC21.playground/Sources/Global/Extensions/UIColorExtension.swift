@@ -1,13 +1,11 @@
 import UIKit
 
 extension UIColor {
-    static let charcoal: UIColor = .init(hex: "264653")
-    static let persianGreen: UIColor = .init(hex: "2A9D8F")
-    static let crayola: UIColor = .init(hex: "E9C46A")
-    static let sandyBrown: UIColor = .init(hex: "F4A261")
-    static let burntSienna: UIColor = .init(hex: "E76F51")
-    static let almondWhite: UIColor = .init(hex: "FDF4EC")
-    static let smokyBlack: UIColor = .init(hex: "120A02")
+    static let darkPurple: UIColor = .init(hex: "100326")
+    static let flickrPink: UIColor = .init(hex: "F72585")
+    static let neonPurple: UIColor = .init(hex: "7209B7")
+    static let persianBlue: UIColor = .init(hex: "3F37C9")
+    static let vividBlue: UIColor = .init(hex: "4CC9F0")
 
     public convenience init(hex: String, alpha: CGFloat = 1.0) {
         let scanner = Scanner(string: hex)

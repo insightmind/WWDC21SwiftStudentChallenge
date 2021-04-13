@@ -28,7 +28,7 @@ open class FlowableScene: SKScene {
      */
     open func configureScene() {
         isUserInteractionEnabled = true
-        backgroundColor = .almondWhite
+        backgroundColor = .darkPurple
 
         // Implement this in subclass
     }

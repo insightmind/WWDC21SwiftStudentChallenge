@@ -6,7 +6,7 @@ enum GameTheme {
     var palette: ColorPalette {
         switch self {
         case .basic:
-            return .init(colors: [.charcoal, .persianGreen, .crayola, .sandyBrown, .burntSienna], backgroundColor: .almondWhite)
+            return .init(colors: [.flickrPink, .neonPurple, .persianBlue, .vividBlue], backgroundColor: .darkPurple)
         }
     }
 }
