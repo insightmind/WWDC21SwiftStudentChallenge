@@ -1,10 +1,12 @@
 import SpriteKit
 
 class GameScene: FlowableScene {
+    // MARK: - Nodes
+    private lazy var gridWorld: GridWorldNode = .init(size: size, world: .init())
+
     override func configureScene() {
         super.configureScene()
-
-        // TODO: Implement this
+        addChild(gridWorld)
     }
 
     func touchDown(atPoint pos : CGPoint) {
