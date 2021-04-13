@@ -7,7 +7,7 @@ class CircleAnchor: SKNode {
     private let shapeNode: SKShapeNode
 
     // MARK: - Initialization
-    init(position: CGPoint, radius: CGFloat = 30) {
+    init(position: CGPoint, radius: CGFloat = 20) {
         self.shapeNode = .init(circleOfRadius: radius)
         super.init()
         self.position = position

@@ -2,7 +2,7 @@
 
 import SpriteKit
 
-class BendAnchorSegmentNode: RopeSegmentNode {
+final class BendAnchorSegmentNode: RopeSegmentNode {
     private let bendAnchor: CGPoint
     private let curveRadius: CGFloat
 
@@ -18,14 +18,15 @@ class BendAnchorSegmentNode: RopeSegmentNode {
         let path = UIBezierPath()
         path.move(to: .zero)
 
-        let firstDirection = startPoint.vector(to: bendAnchor)
+        let firstDirection = startPoint.difference(to: bendAnchor)
         let firstCurveAnchor = CGPoint(length: firstDirection.length() - curveRadius / 2, direction: firstDirection)
-        let secondDirection = bendAnchor.vector(to: endPoint)
+        let secondDirection = bendAnchor.difference(to: endPoint)
         let secondCurveAnchor = firstDirection.add(CGPoint(length: curveRadius / 2, direction: secondDirection))
 
         path.addLine(to: firstCurveAnchor)
-        path.addQuadCurve(to: secondCurveAnchor, controlPoint: startPoint.vector(to: bendAnchor))
-        path.addLine(to: startPoint.vector(to: endPoint))
+        path.addQuadCurve(to: secondCurveAnchor, controlPoint: startPoint.difference(to: bendAnchor))
+        path.addLine(to: startPoint.difference(to: endPoint))
+
         return path.cgPath
     }
 }

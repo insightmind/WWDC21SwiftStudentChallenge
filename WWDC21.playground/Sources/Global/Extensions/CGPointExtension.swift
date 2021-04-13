@@ -19,7 +19,7 @@ extension CGPoint {
         return hypot(x, y)
     }
 
-    public func vector(to otherPoint: CGPoint) -> CGPoint {
+    public func difference(to otherPoint: CGPoint) -> CGPoint {
         return .init(x: otherPoint.x - x, y: otherPoint.y - y)
     }
 
@@ -29,5 +29,9 @@ extension CGPoint {
 
     public func add(_ otherPoint: CGPoint) -> CGPoint {
         return .init(x: x + otherPoint.x, y: y + otherPoint.y)
+    }
+
+    public func dot(_ otherPoint: CGPoint) -> CGFloat {
+        return x * otherPoint.x + y * otherPoint.y
     }
 }

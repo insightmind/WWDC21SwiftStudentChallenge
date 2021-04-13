@@ -6,7 +6,7 @@ class RopeSegmentNode: SKNode {
     // MARK: - Properties
     let startPoint: CGPoint
     var endPoint: CGPoint {
-        didSet { redraw() }
+        didSet { draw() }
     }
 
     var isStatic: Bool = false
@@ -25,7 +25,7 @@ class RopeSegmentNode: SKNode {
         super.init()
 
         configureNode()
-        redraw()
+        draw()
     }
 
     @available(*, unavailable)
@@ -36,9 +36,9 @@ class RopeSegmentNode: SKNode {
     // MARK: - Configure Node
     private func configureNode() {
         // TODO: Add customizable styling
-        shapeNode.strokeColor = keyColor
+        shapeNode.strokeColor = .charcoal
         shapeNode.lineWidth = 50
-        shapeNode.lineCap = .square
+        shapeNode.lineCap = .round
 
         addChild(shapeNode)
     }
@@ -49,8 +49,12 @@ class RopeSegmentNode: SKNode {
         fatalError("Override this in subclass")
     }
 
-    private func redraw() {
+    private func draw() {
         guard !isStatic else { return }
+        redraw()
+    }
+
+    func redraw() {
         shapeNode.path = drawPath()
     }
 }

@@ -1,28 +1,18 @@
 import SpriteKit
 
 class GameScene: FlowableScene {
-    private lazy var firstRope: RopeNode = .init(startAnchor: .init(x: 0.0, y: 0.3), size: self.size)
-    private lazy var secondRope: RopeNode = .init(startAnchor: .init(x: 0.0, y: 0.4), size: self.size)
-    private lazy var thirdRope: RopeNode = .init(startAnchor: .init(x: 0.0, y: 0.5), size: self.size)
-    private lazy var fourthRope: RopeNode = .init(startAnchor: .init(x: 0.0, y: 0.6), size: self.size)
-    private lazy var fifthRope: RopeNode = .init(startAnchor: .init(x: 0.0, y: 0.7), size: self.size)
+    private lazy var thirdRope: RopeNode = .init(startAnchor: .init(x: self.size.width / 2, y: self.size.height / 2), size: self.size)
 
     private lazy var anchorNode: CircleAnchor = .init(position: .zero)
 
     override func configureScene() {
         super.configureScene()
-        addChild(firstRope)
-        firstRope.keyColor = .charcoal
-        addChild(secondRope)
-        secondRope.keyColor = .persianGreen
+
         addChild(thirdRope)
         thirdRope.keyColor = .crayola
-        addChild(fourthRope)
-        fourthRope.keyColor = .sandyBrown
-        addChild(fifthRope)
-        fifthRope.keyColor = .burntSienna
 
         addChild(anchorNode)
+        anchorNode.position = thirdRope.position.add(.init(x: 100 + self.size.width / 2, y: 50 + self.size.height / 2))
     }
 
     func touchDown(atPoint pos : CGPoint) {
