@@ -15,4 +15,8 @@ class TransmitterNode: GridNode {
         virtualEmitter.forEach { $0.onTick(tickCount: tickCount) }
         virtualAbsorber.forEach { $0.onTick(tickCount: tickCount) }
     }
+
+    override func layoutNode() {
+        // TODO: Implement this
+    }
 }

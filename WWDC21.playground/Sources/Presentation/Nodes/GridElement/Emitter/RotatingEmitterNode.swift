@@ -30,12 +30,22 @@ final class RotatingEmitterNode: EmitterNode {
         spriteNode.texture = .init(imageNamed: rotatesToLeft ? Constants.leftRotateImageName : Constants.rightRotateImageName)
     }
 
+    override func layoutNode() {
+        spriteNode.size = sizePerGrid
+    }
+
     // MARK: - Game Update
     override func onTick(tickCount: Int) {
-        guard tickCount % emitInterval == 0 else { return }
+        guard tickCount % emitInterval == 0 else {
+            super.onTick(tickCount: tickCount)
+            return
+        }
 
+        let delayAction = SKAction.wait(forDuration: 0.4)
         let action = SKAction.rotate(byAngle: rotatesToLeft ? -.pi / 2 : .pi / 2, duration: 0.5)
-        spriteNode.run(action)
+        let sequence = SKAction.sequence([delayAction, action])
+
+        spriteNode.run(sequence)
 
         switch emitDirection {
         case .left:

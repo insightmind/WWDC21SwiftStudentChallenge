@@ -8,14 +8,17 @@ class GameScene: FlowableScene {
 
     // MARK: - Nodes
     private lazy var gridWorld: GridWorldNode = .init(size: size, world: .init())
-    private let emitter: StaticEmitterNode = .init()
+    private let emitter: RotatingEmitterNode = .init()
+    private let firstStaticEmitter: EmitterNode = StaticEmitterNode()
+    private let secondStaticEmitter: EmitterNode = StaticEmitterNode()
 
     override func configureScene() {
         super.configureScene()
         addChild(gridWorld)
         gridWorld.position = .init(x: -size.width / 2, y: -size.height / 2)
-
-        addChild(emitter)
+        gridWorld.placeElement(emitter, at: .init(xIndex: 11, yIndex: 11))
+        gridWorld.placeElement(firstStaticEmitter, at: .init(xIndex: 2, yIndex: 7))
+        gridWorld.placeElement(secondStaticEmitter, at: .init(xIndex: 2, yIndex: 14))
 
         timer = Timer.scheduledTimer(withTimeInterval: tickDuration, repeats: true) { [weak self] timer in
             guard let self = self else { return }
@@ -25,7 +28,6 @@ class GameScene: FlowableScene {
 
     private func tickUpdate() {
         tickCount += 1
-
-        emitter.onTick(tickCount: tickCount)
+        gridWorld.onTick(tickCount: tickCount)
     }
 }

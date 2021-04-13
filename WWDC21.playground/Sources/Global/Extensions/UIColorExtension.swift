@@ -6,6 +6,7 @@ extension UIColor {
     static let neonPurple: UIColor = .init(hex: "7209B7")
     static let persianBlue: UIColor = .init(hex: "3F37C9")
     static let vividBlue: UIColor = .init(hex: "4CC9F0")
+    static let russianViolet: UIColor = .init(hex: "20064B")
 
     public convenience init(hex: String, alpha: CGFloat = 1.0) {
         let scanner = Scanner(string: hex)

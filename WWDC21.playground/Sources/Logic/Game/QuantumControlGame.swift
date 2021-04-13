@@ -6,7 +6,7 @@ import PlaygroundSupport
 
 public class QuantumControlGame: PlaygroundLiveViewable {
     // MARK: - Properties
-    private let viewSize: CGSize = CGSize(width: 800, height: 800)
+    private let viewSize: CGSize = CGSize(width: 600, height: 600)
     private var gameState: GameState = .game
     private var theme: GameTheme = .basic
 

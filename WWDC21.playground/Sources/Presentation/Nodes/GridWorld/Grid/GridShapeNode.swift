@@ -4,7 +4,7 @@ final class GridShapeNode: SKNode {
     // MARK: - Properties
     private let gridSize: GridSize
     private let realSize: CGSize
-    private let tintColor: UIColor = .white
+    private let tintColor: UIColor = .russianViolet
     private let lineWidth: CGFloat = 2
 
     private var verticalShapeNodes: [SKShapeNode] = .init()
