@@ -2,30 +2,13 @@
 
 import SpriteKit
 
-class RopeSegmentNode: SKNode {
+class RopeSegmentNode {
     // MARK: - Properties
-    let startPoint: CGPoint
-    var endPoint: CGPoint {
-        didSet { draw() }
-    }
-
-    var isStatic: Bool = false
-    var keyColor: UIColor = .charcoal {
-        didSet { shapeNode.strokeColor = keyColor }
-    }
-
-    // MARK: - Subnodes
-    private let shapeNode = SKShapeNode()
+    var endPoint: CGPoint
 
     // MARK: - Initialization
-    init(startPoint: CGPoint) {
-        self.startPoint = startPoint
-        self.endPoint = startPoint
-
-        super.init()
-
-        configureNode()
-        draw()
+    init() {
+        self.endPoint = .zero
     }
 
     @available(*, unavailable)
@@ -33,28 +16,9 @@ class RopeSegmentNode: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Configure Node
-    private func configureNode() {
-        // TODO: Add customizable styling
-        shapeNode.strokeColor = .charcoal
-        shapeNode.lineWidth = 50
-        shapeNode.lineCap = .round
-
-        addChild(shapeNode)
-    }
-
     // MARK: - Drawing
-    func drawPath() -> CGPath {
+    func drawPath(path: CGMutablePath) -> CGMutablePath {
         // Override this in subclass
         fatalError("Override this in subclass")
-    }
-
-    private func draw() {
-        guard !isStatic else { return }
-        redraw()
-    }
-
-    func redraw() {
-        shapeNode.path = drawPath()
     }
 }

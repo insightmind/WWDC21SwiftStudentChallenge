@@ -4,16 +4,16 @@ import Foundation
 
 internal struct NonEmptyStack<Element> {
     // MARK: - Properties
-    private var baseElement: Element
+    private(set) var base: Element
     private var stack: [Element]
 
     // MARK: - Public Properties
     var count: Int { 1 + stack.count }
-    var head: Element { stack.last ?? baseElement }
+    var head: Element { stack.last ?? base }
 
     // MARK: - Initialization
     init(base: Element) {
-        self.baseElement = base
+        self.base = base
         self.stack = []
     }
 
@@ -28,6 +28,6 @@ internal struct NonEmptyStack<Element> {
 
     // MARK: - Helper Methods
     func toArray() -> [Element] {
-        return [baseElement] + stack
+        return [base] + stack
     }
 }

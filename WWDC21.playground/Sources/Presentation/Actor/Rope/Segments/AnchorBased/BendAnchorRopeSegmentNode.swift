@@ -7,26 +7,23 @@ final class BendAnchorSegmentNode: RopeSegmentNode {
     private let curveRadius: CGFloat
 
     // MARK: - Initialization
-    init(startPoint: CGPoint, bendAnchor: CGPoint, curveRadius: CGFloat) {
+    init(bendAnchor: CGPoint, curveRadius: CGFloat) {
         self.bendAnchor = bendAnchor
         self.curveRadius = curveRadius
-        super.init(startPoint: startPoint)
+        super.init()
     }
 
     // MARK: - Drawing
-    override func drawPath() -> CGPath {
-        let path = UIBezierPath()
-        path.move(to: .zero)
-
-        let firstDirection = startPoint.difference(to: bendAnchor)
+    override func drawPath(path: CGMutablePath) -> CGMutablePath {
+        let firstDirection = path.currentPoint.difference(to: bendAnchor)
         let firstCurveAnchor = CGPoint(length: firstDirection.length() - curveRadius / 2, direction: firstDirection)
         let secondDirection = bendAnchor.difference(to: endPoint)
         let secondCurveAnchor = firstDirection.add(CGPoint(length: curveRadius / 2, direction: secondDirection))
 
         path.addLine(to: firstCurveAnchor)
-        path.addQuadCurve(to: secondCurveAnchor, controlPoint: startPoint.difference(to: bendAnchor))
-        path.addLine(to: startPoint.difference(to: endPoint))
+        path.addQuadCurve(to: secondCurveAnchor, control: bendAnchor)
+        path.addLine(to: endPoint)
 
-        return path.cgPath
+        return path
     }
 }

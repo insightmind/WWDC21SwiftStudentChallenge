@@ -3,113 +3,94 @@
 import SpriteKit
 
 final class CircleAnchorSegmentNode: RopeSegmentNode {
-    private let startPointToAnchorDirection: CGPoint
-    private let enterDirection: CGPoint
-    private let clockwise: Bool
-
-    private let firstShapeNode: SKShapeNode = .init(circleOfRadius: 10)
-    private let secondShapeNode: SKShapeNode = .init(circleOfRadius: 10)
-    private let thirdShapeNode: SKShapeNode = .init(circleOfRadius: 10)
+    private let circleCenter: CGPoint
+    private let radius: CGFloat
 
     // MARK: - Initialization
-    init(startPoint: CGPoint, startPointToAnchorDirection: CGPoint, enterDirection: CGPoint) {
-        self.startPointToAnchorDirection = startPointToAnchorDirection
-        self.enterDirection = enterDirection
+    init(circleCenter: CGPoint, radius: CGFloat) {
+        self.circleCenter = circleCenter
+        self.radius = radius
 
-        let inverseStartPointToAnchor = startPointToAnchorDirection.normalized().scalarMultiply(-1)
-        let clockwiseDirection = CGPoint(
-            x: inverseStartPointToAnchor.x * cos(.pi / 2) - inverseStartPointToAnchor.y * sin(.pi / 2),
-            y: inverseStartPointToAnchor.x * sin(.pi / 2) + inverseStartPointToAnchor.y * cos(.pi / 2)
-        )
-
-        print("Clockwise Direction: \(clockwiseDirection), Anti: \(clockwiseDirection.scalarMultiply(-1))")
-        print("Enter Direction: \(enterDirection)")
-
-        if enterDirection.difference(to: clockwiseDirection).length() < enterDirection.difference(to: clockwiseDirection.scalarMultiply(-1)).length() {
-            clockwise = true
-            print("IS CLOCKWISE")
-        } else {
-            clockwise = false
-            print("IS ANTICLOCKWISE")
-        }
-
-        super.init(startPoint: startPoint)
-
-        addChild(firstShapeNode)
-        addChild(secondShapeNode)
-        addChild(thirdShapeNode)
+        super.init()
     }
 
     // MARK: - Drawing
-    override func drawPath() -> CGPath {
-        let path = UIBezierPath()
-        path.move(to: startPoint)
+    override func drawPath(path: CGMutablePath) -> CGMutablePath {
+        let relativeStartPoint = circleCenter.difference(to: path.currentPoint)
+        let clockwise = isClockwise(tangentPoint: circleCenter.difference(to: path.currentPoint), tangentDirection: .init(x: 1, y: 0))
 
-        print("CIRCLE: Start: \(startPoint), End: \(endPoint)")
+        // Find valid exit points for the circle
+        guard let tangentPoint = resolveTangentPoint(clockwise: clockwise) else {
+            path.addLine(to: endPoint)
+            return path
+        }
 
-        let tangentPoint = tangentPointOnCircle(for: startPoint.difference(to: endPoint), circleCenter: startPoint.add(startPointToAnchorDirection), radius: startPointToAnchorDirection.length())
-
-        print("Enter Radius: \(radiusOnCircle(for: startPoint, circleCenter: startPoint.add(startPointToAnchorDirection), clockwise: clockwise) + .pi) == \(3 * Double.pi / 2)")
-        print("Exit Radius: \(radiusOnCircle(for: startPoint.add(tangentPoint.first), circleCenter: startPoint.add(startPointToAnchorDirection), clockwise: clockwise)) == \(0)")
-
-        path.addArc(
-            withCenter: startPoint.add(startPointToAnchorDirection),
-            radius: startPointToAnchorDirection.length(),
-            startAngle: 3 * .pi / 2,
-            endAngle: 0,
-            clockwise: clockwise
+        let startAngle = angleOnCircle(for: path.currentPoint, circleCenter: circleCenter)
+        let startDirection = relativeStartPoint.normalized()
+        let endDirection = tangentPoint.normalized()
+        let angle = atan2(
+            startDirection.x * endDirection.y - startDirection.y * endDirection.x,
+            startDirection.x * endDirection.x - startDirection.y * endDirection.y
         )
 
-        firstShapeNode.position = startPoint.add(tangentPoint.first)
-        firstShapeNode.fillColor = .cyan
-        secondShapeNode.position = startPoint.add(tangentPoint.second)
-        firstShapeNode.fillColor = .green
-        thirdShapeNode.position = endPoint
-        thirdShapeNode.fillColor = .black
+        //let radiusSquared = pow(radius, 2)
+        //let angle = acos((2 * radiusSquared - pow(relativeStartPoint.difference(to: tangentPoint).length(), 2)) / (2 * radiusSquared))
+        //path.addArc(center: circleCenter, radius: radius, startAngle: startAngle, endAngle: startAngle + angle, clockwise: !clockwise)
+        print("Start: \(startAngle / .pi) -> End \((.pi - angle) / .pi)")
+        path.addRelativeArc(center: circleCenter, radius: radius, startAngle: startAngle, delta: -(angle + .pi))
+        path.addLine(to: endPoint)
+        return path
+    }
 
+    private func resolveTangentPoint(clockwise: Bool) -> CGPoint? {
+        guard let tangentPoint = tangentPointOnCircle(for: circleCenter.difference(to: endPoint), radius: radius) else { return nil }
+        let firstTangentDirection = circleCenter
+            .add(tangentPoint.first)
+            .difference(to: endPoint)
+            .normalized()
 
-        //path.addLine(to: endPoint)
+        let isFirstTangentClockwise = isClockwise(tangentPoint: tangentPoint.first, tangentDirection: firstTangentDirection)
 
-
-//        let firstDirection = startPoint.vector(to: bendAnchor)
-//        let firstCurveAnchor = CGPoint(length: firstDirection.length() - curveRadius / 2, direction: firstDirection)
-//        let secondDirection = bendAnchor.vector(to: endPoint)
-//        let secondCurveAnchor = firstDirection.add(CGPoint(length: curveRadius / 2, direction: secondDirection))
-//
-//        path.addLine(to: firstCurveAnchor)
-//        path.addQuadCurve(to: secondCurveAnchor, controlPoint: startPoint.vector(to: bendAnchor))
-//        path.addLine(to: startPoint.vector(to: endPoint))
-        return path.cgPath
+        if clockwise {
+            return isFirstTangentClockwise ? tangentPoint.first : tangentPoint.second
+        } else {
+            return isFirstTangentClockwise ? tangentPoint.second : tangentPoint.first
+        }
     }
 
     // MARK: - Helper Methods
-    private func radiusOnCircle(for point: CGPoint, circleCenter: CGPoint, clockwise: Bool) -> CGFloat {
+    private func angleOnCircle(for point: CGPoint, circleCenter: CGPoint) -> CGFloat {
         let pointDirection = circleCenter.difference(to: point).normalized()
-        let referenceDirection = clockwise ? CGPoint(x: -1, y: 0).normalized() : CGPoint(x: 1, y: 0).normalized() // Direction for 0*pi
-        return acos(referenceDirection.dot(pointDirection))
+        return atan(pointDirection.y / pointDirection.x)
     }
 
-    private func tangentPointOnCircle(for referencePoint: CGPoint, circleCenter: CGPoint, radius: CGFloat) -> (first: CGPoint, second: CGPoint) {
-        let refPoint = circleCenter.difference(to: referencePoint)
-
+    private func tangentPointOnCircle(for refPoint: CGPoint, radius: CGFloat) -> (first: CGPoint, second: CGPoint)? {
         let radiusSquared = pow(radius, 2)
 
         let midnightA = pow(refPoint.x, 2) + pow(refPoint.y, 2)
-        let midnightB = 2 * radiusSquared * refPoint.x
+        let midnightB = -2 * radiusSquared * refPoint.x
         let midnightC = radiusSquared * (radiusSquared - pow(refPoint.y, 2))
 
         let discriminant = pow(midnightB, 2) - 4 * midnightA * midnightC
         guard discriminant >= 0 else {
             print("ERROR: Discriminent would cause imaginary coordinate. CircleAnchorSegmentNode.tangentPointOnCircle aborting!")
-            return (first: .zero, second: .zero)
+            return nil
         }
 
         let aPlus = (-midnightB + sqrt(discriminant)) / (2 * midnightA)
         let aMinus = (-midnightB - sqrt(discriminant)) / (2 * midnightA)
 
-        let bPlus = sqrt(radiusSquared - pow(aPlus, 2))
-        let bMinus = sqrt(radiusSquared - pow(bPlus, 2))
-
+        let bPlus = (radiusSquared - refPoint.x * aPlus) / refPoint.y
+        let bMinus = (radiusSquared - refPoint.x * aMinus) / refPoint.y
         return (first: .init(x: aPlus, y: bPlus), second: .init(x: aMinus, y: bMinus))
+    }
+
+    private func isClockwise(tangentPoint: CGPoint, tangentDirection: CGPoint) -> Bool {
+        let clockwiseDirection = CGPoint(
+            x: tangentPoint.x * cos(.pi / 2) - tangentPoint.y * sin(.pi / 2),
+            y: tangentPoint.x * sin(.pi / 2) + tangentPoint.y * cos(.pi / 2)
+        ).normalized()
+
+        return clockwiseDirection.x * tangentDirection.x > 0 && clockwiseDirection.y * tangentDirection.y > 0
     }
 }

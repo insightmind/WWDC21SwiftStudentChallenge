@@ -4,12 +4,8 @@ import SpriteKit
 
 final class LinearRopeSegmentNode: RopeSegmentNode {
     // MARK: - Drawing
-    override func drawPath() -> CGPath {
-        print("Start: \(startPoint), End: \(endPoint)")
-
-        let path = UIBezierPath()
-        path.move(to: startPoint)
+    override func drawPath(path: CGMutablePath) -> CGMutablePath {
         path.addLine(to: endPoint)
-        return path.cgPath
+        return path
     }
 }

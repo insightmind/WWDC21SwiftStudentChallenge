@@ -25,5 +25,6 @@ class CircleAnchor: SKNode {
         shapeNode.blendMode = .replace
         shapeNode.fillColor = .smokyBlack
         shapeNode.lineWidth = 0
+        shapeNode.isAntialiased = true
     }
 }

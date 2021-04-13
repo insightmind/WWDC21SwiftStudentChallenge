@@ -37,7 +37,6 @@ public class RopeGame: PlaygroundLiveViewable {
         view.showsQuadCount = isDebug
 
         scene = gameState.loadScene(size: viewSize)
-        //scene.anchorPoint = .init(x: 0.5, y: 0.5)
         view.presentScene(scene)
     }
 }

@@ -5,18 +5,20 @@ import SpriteKit
 public class RopeNode: SKSpriteNode {
     // MARK: - Properties
     private var segments: NonEmptyStack<RopeSegmentNode>
+    private var startPoint: CGPoint
     var keyColor: UIColor = .charcoal {
-        didSet {
-            segments
-                .toArray()
-                .forEach { $0.keyColor = keyColor }
-        }
+        didSet { shapeNode.strokeColor = keyColor }
     }
+
+    // MARK: - Subnodes
+    private let shapeNode = SKShapeNode()
 
     // MARK: - Initialization
     public init(startAnchor: CGPoint, size: CGSize) {
-        let linearSegment = LinearRopeSegmentNode(startPoint: startAnchor)
-        linearSegment.endPoint = linearSegment.startPoint.add(.init(x: 100, y: 0))
+        self.startPoint = startAnchor
+
+        let linearSegment = LinearRopeSegmentNode()
+        linearSegment.endPoint = startAnchor.add(.init(x: 100, y: 0))
 
 //        let initialSegment = BendAnchorSegmentNode(
 //            startPoint: startPoint,
@@ -24,14 +26,17 @@ public class RopeNode: SKSpriteNode {
 //            curveRadius: 50
 //        )
 
-        let initialSegment = CircleAnchorSegmentNode(startPoint: linearSegment.endPoint, startPointToAnchorDirection: .init(x: 0, y: 50), enterDirection: .init(x: 1, y: 0))
-
+        let circleSegment = CircleAnchorSegmentNode(circleCenter: linearSegment.endPoint.add(.init(x: 0, y: -50)), radius: 50)
         self.segments = .init(base: linearSegment)
+        segments.push(circleSegment)
+
         super.init(texture: nil, color: .clear, size: size)
-        addChild(linearSegment)
 
-
-        addSegment(initialSegment)
+        addChild(shapeNode)
+        shapeNode.strokeColor = keyColor
+        shapeNode.lineWidth = 50
+        shapeNode.lineCap = .round
+        redrawAll()
     }
 
     @available(*, unavailable)
@@ -41,16 +46,19 @@ public class RopeNode: SKSpriteNode {
 
     // MARK: - Methods
     private func redrawAll() {
-        segments.toArray().forEach { $0.redraw() }
+        var path = CGMutablePath()
+        path.move(to: startPoint)
+
+        segments.toArray().forEach { segment in
+            path = segment.drawPath(path: path)
+        }
+
+        shapeNode.path = path
     }
 
-    public func updateEndPoint(_ endPoint: CGPoint) {
+    func updateEndPoint(_ endPoint: CGPoint, anchors: [CircleAnchor]) {
         segments.head.endPoint = endPoint
-    }
-
-    private func addSegment(_ segment: RopeSegmentNode) {
-        segments.push(segment)
-        addChild(segment)
+        redrawAll()
     }
 }
 
