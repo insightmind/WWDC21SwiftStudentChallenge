@@ -34,4 +34,10 @@ extension CGPoint {
     public func dot(_ otherPoint: CGPoint) -> CGFloat {
         return x * otherPoint.x + y * otherPoint.y
     }
+
+    public func orientedAngle(to otherPoint: CGPoint) -> CGFloat {
+        let first = normalized()
+        let second = otherPoint.normalized()
+        return atan2(first.x * second.y - first.y * second.x, first.x * second.x - first.y * second.y)
+    }
 }

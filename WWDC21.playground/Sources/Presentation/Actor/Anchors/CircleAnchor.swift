@@ -7,7 +7,7 @@ class CircleAnchor: SKNode {
     private let shapeNode: SKShapeNode
 
     // MARK: - Initialization
-    init(position: CGPoint, radius: CGFloat = 20) {
+    init(position: CGPoint, radius: CGFloat = 35) {
         self.shapeNode = .init(circleOfRadius: radius)
         super.init()
         self.position = position
@@ -24,7 +24,8 @@ class CircleAnchor: SKNode {
         addChild(shapeNode)
         shapeNode.blendMode = .replace
         shapeNode.fillColor = .smokyBlack
-        shapeNode.lineWidth = 0
+        shapeNode.strokeColor = .smokyBlack
+        shapeNode.lineWidth = 1
         shapeNode.isAntialiased = true
     }
 }

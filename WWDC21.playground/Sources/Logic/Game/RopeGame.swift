@@ -29,7 +29,7 @@ public class RopeGame: PlaygroundLiveViewable {
     // MARK: - Initialization
     /// Starts the game. You can then use the view to show it on screen.
     /// - Parameter isDebug: If true the SpriteKit debug menu is shown
-    public init(isDebug: Bool = false) {
+    public init(isDebug: Bool = true) {
         view.showsFPS = isDebug
         view.showsFields = isDebug
         view.showsDrawCount = isDebug

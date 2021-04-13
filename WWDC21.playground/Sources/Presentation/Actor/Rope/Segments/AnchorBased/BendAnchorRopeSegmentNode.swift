@@ -18,10 +18,12 @@ final class BendAnchorSegmentNode: RopeSegmentNode {
         let firstDirection = path.currentPoint.difference(to: bendAnchor)
         let firstCurveAnchor = CGPoint(length: firstDirection.length() - curveRadius / 2, direction: firstDirection)
         let secondDirection = bendAnchor.difference(to: endPoint)
-        let secondCurveAnchor = firstDirection.add(CGPoint(length: curveRadius / 2, direction: secondDirection))
+        let secondCurveAnchor = bendAnchor.add(CGPoint(length: curveRadius / 2, direction: secondDirection))
 
-        path.addLine(to: firstCurveAnchor)
+        path.addLine(to: path.currentPoint.add(firstCurveAnchor))
         path.addQuadCurve(to: secondCurveAnchor, control: bendAnchor)
+
+        interactableStartPoint = path.currentPoint
         path.addLine(to: endPoint)
 
         return path

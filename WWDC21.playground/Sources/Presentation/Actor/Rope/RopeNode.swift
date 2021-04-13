@@ -4,7 +4,7 @@ import SpriteKit
 
 public class RopeNode: SKSpriteNode {
     // MARK: - Properties
-    private var segments: NonEmptyStack<RopeSegmentNode>
+    private var segments: [RopeSegmentNode]
     private var startPoint: CGPoint
     var keyColor: UIColor = .charcoal {
         didSet { shapeNode.strokeColor = keyColor }
@@ -17,31 +17,12 @@ public class RopeNode: SKSpriteNode {
     public init(startAnchor: CGPoint, size: CGSize) {
         self.startPoint = startAnchor
 
-        let linearSegment = LinearRopeSegmentNode()
-        linearSegment.endPoint = startAnchor.add(.init(x: 100, y: 0))
-
-//        let initialSegment = BendAnchorSegmentNode(
-//            startPoint: startPoint,
-//            bendAnchor: .init(x: startPoint.x + 100, y: startPoint.y),
-//            curveRadius: 50
-//        )
-
-        let circleSegment = CircleAnchorSegmentNode(
-            circleCenter: linearSegment.endPoint.add(.init(x: 0, y: 50)),
-            radius: 50,
-            enterDirection: startPoint.difference(to: linearSegment.endPoint)
-        )
-
-        self.segments = .init(base: linearSegment)
-        segments.push(circleSegment)
+        let initialSegment = BendAnchorSegmentNode(bendAnchor: startAnchor.add(.init(x: 100, y: 0)), curveRadius: 50)
+        initialSegment.endPoint = startAnchor
+        self.segments = [initialSegment]
 
         super.init(texture: nil, color: .clear, size: size)
-
-        addChild(shapeNode)
-        shapeNode.strokeColor = keyColor
-        shapeNode.lineWidth = 50
-        shapeNode.lineCap = .round
-        redrawAll()
+        configureNode()
     }
 
     @available(*, unavailable)
@@ -49,12 +30,21 @@ public class RopeNode: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Node Configuration
+    private func configureNode() {
+        addChild(shapeNode)
+        shapeNode.strokeColor = keyColor
+        shapeNode.lineWidth = 50
+        shapeNode.lineCap = .round
+        redrawAll()
+    }
+
     // MARK: - Methods
     private func redrawAll() {
         var path = CGMutablePath()
         path.move(to: startPoint)
 
-        segments.toArray().forEach { segment in
+        segments.forEach { segment in
             path = segment.drawPath(path: path)
         }
 
@@ -62,8 +52,16 @@ public class RopeNode: SKSpriteNode {
     }
 
     func updateEndPoint(_ endPoint: CGPoint, anchors: [CircleAnchor]) {
-        segments.head.endPoint = endPoint
+        let previousPath = shapeNode.path
+
+        guard let lastSegment = segments.last else { return }
+
+        lastSegment.endPoint = endPoint
         redrawAll()
+
+        if lastSegment.evaluateCollisionAnchors(anchors) {
+            shapeNode.path = previousPath
+        }
     }
 }
 

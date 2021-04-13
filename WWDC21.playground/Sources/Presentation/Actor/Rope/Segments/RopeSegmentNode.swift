@@ -2,13 +2,16 @@
 
 import SpriteKit
 
-class RopeSegmentNode {
+class RopeSegmentNode: SKNode {
     // MARK: - Properties
     var endPoint: CGPoint
+    var interactableStartPoint: CGPoint
 
     // MARK: - Initialization
-    init() {
+    override init() {
         self.endPoint = .zero
+        self.interactableStartPoint = .zero
+        super.init()
     }
 
     @available(*, unavailable)
@@ -18,7 +21,22 @@ class RopeSegmentNode {
 
     // MARK: - Drawing
     func drawPath(path: CGMutablePath) -> CGMutablePath {
-        // Override this in subclass
-        fatalError("Override this in subclass")
+        self.interactableStartPoint = path.currentPoint
+        return path
+    }
+
+    func evaluateCollisionAnchors(_ anchors: [CircleAnchor]) -> Bool {
+        let path = CGMutablePath()
+        path.move(to: interactableStartPoint)
+        let generatedPath = drawPath(path: path)
+
+        for anchor in anchors {
+            let accumulatedFrame = anchor.calculateAccumulatedFrame()
+            let intersectRect = generatedPath.boundingBoxOfPath.intersection(accumulatedFrame)
+            guard intersectRect != .null else { continue }
+            return true
+        }
+
+        return false
     }
 }

@@ -1,9 +1,11 @@
 import SpriteKit
 
 class GameScene: FlowableScene {
-    private lazy var thirdRope: RopeNode = .init(startAnchor: .init(x: self.size.width / 2, y: self.size.height / 2), size: self.size)
+    private lazy var thirdRope: RopeNode = .init(startAnchor: .init(x: 0, y: self.size.height / 2), size: self.size)
 
-    private lazy var anchorNode: CircleAnchor = .init(position: .zero)
+    private lazy var firstAnchor: CircleAnchor = .init(position: .zero)
+    private lazy var secondAnchor: CircleAnchor = .init(position: .zero)
+
     private var anchors: [CircleAnchor] = []
 
     override func configureScene() {
@@ -12,9 +14,13 @@ class GameScene: FlowableScene {
         addChild(thirdRope)
         thirdRope.keyColor = .charcoal
 
-        addChild(anchorNode)
-        anchorNode.position = thirdRope.position.add(.init(x: 100 + self.size.width / 2, y: 50 + self.size.height / 2))
-        anchors.append(anchorNode)
+        addChild(firstAnchor)
+        firstAnchor.position = .init(x: self.size.width * 0.5, y: self.size.height * 0.75)
+        anchors.append(firstAnchor)
+
+        addChild(secondAnchor)
+        secondAnchor.position = .init(x: self.size.width * 0.5, y: self.size.height * 0.25)
+        anchors.append(secondAnchor)
     }
 
     func touchDown(atPoint pos : CGPoint) {
