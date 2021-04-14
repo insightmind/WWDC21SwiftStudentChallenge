@@ -3,7 +3,12 @@ import SpriteKit
 final class GridWorldNode: SKNode {
     // MARK: - Properties
     private let world: GridWorld
-    private let realSize: CGSize
+    var realSize: CGSize {
+        didSet {
+            layoutWorld()
+        }
+    }
+
     private var sizePerGrid: CGSize { .init(width: realSize.width / CGFloat(world.size.width), height: realSize.height / CGFloat(world.size.height)) }
 
     // MARK: - Children
@@ -28,6 +33,24 @@ final class GridWorldNode: SKNode {
         addChild(gridNode)
         gridNode.zPosition = -100
     }
+
+    private func layoutWorld() {
+        gridNode.removeFromParent()
+        gridNode = .init(gridSize: world.size, realSize: realSize)
+        configureNode()
+
+        elements.forEach { element in
+            let position = self.position(of: element)
+            element.removeFromParent()
+            placeElement(element, at: position)
+        }
+
+        children.forEach { child in
+            guard child is EmissionNode else { return }
+            child.removeFromParent()
+        }
+    }
+
 
     // MARK: - Game Updates
     func onTick(tickCount: Int) {
@@ -55,12 +78,11 @@ final class GridWorldNode: SKNode {
 extension GridWorldNode: GridWorldReference {
     func emitQuantum(from emitterPosition: GridPosition, using direction: GridDirection) {
         let emission = EmissionNode()
-        let velocityFactor = CGPoint(x: 10 * CGFloat(sizePerGrid.width), y: 10 * CGFloat(sizePerGrid.height))
+        let velocityFactor = CGPoint(x: 5 * CGFloat(sizePerGrid.width), y: 5 * CGFloat(sizePerGrid.height))
         emission.physicsBody?.setMoveDirection(direction: direction, velocityFactor: velocityFactor)
 
-
         let realEmitterPosition = realPosition(for: emitterPosition)
-        let realEmissionPosition: CGPoint = .init(x: realEmitterPosition.x + direction.vector.dx * sizePerGrid.width, y: realEmitterPosition.y + direction.vector.dy * sizePerGrid.height)
+        let realEmissionPosition: CGPoint = .init(x: realEmitterPosition.x + direction.vector.dx * 10, y: realEmitterPosition.y + direction.vector.dy * 10)
         emission.position = realEmissionPosition
         emission.zRotation = direction.rotationInRadians
         addChild(emission)

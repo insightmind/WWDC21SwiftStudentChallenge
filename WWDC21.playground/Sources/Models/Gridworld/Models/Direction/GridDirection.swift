@@ -13,28 +13,28 @@ enum GridDirection {
     var vector: CGVector {
         switch self {
         case .left:
-            return .init(dx: -1, dy: 0)
+            return CGVector(dx: -1, dy: 0)
 
         case .leftUp:
-            return .init(dx: -1, dy: 1).normalized
+            return CGVector(dx: -1, dy: 1).normalized
             
         case .leftDown:
-            return .init(dx: -1, dy: -1).normalized
+            return CGVector(dx: -1, dy: -1).normalized
 
         case .up:
-            return .init(dx: 0, dy: 1)
+            return CGVector(dx: 0, dy: 1)
 
         case .right:
-            return .init(dx: 1, dy: 0)
+            return CGVector(dx: 1, dy: 0)
 
         case .rightUp:
-            return .init(dx: 1, dy: 1).normalized
+            return CGVector(dx: 1, dy: 1).normalized
 
         case .rightDown:
-            return .init(dx: 1, dy: -1).normalized
+            return CGVector(dx: 1, dy: -1).normalized
 
         case .down:
-            return .init(dx: 0, dy: -1)
+            return CGVector(dx: 0, dy: -1)
         }
     }
 

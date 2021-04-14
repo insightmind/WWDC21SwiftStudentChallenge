@@ -6,7 +6,7 @@ import PlaygroundSupport
 
 public class QuantumControlGame: PlaygroundLiveViewable {
     // MARK: - Properties
-    private let viewSize: CGSize = CGSize(width: 600, height: 600)
+    private let viewSize: CGSize = CGSize(width: 750, height: 750)
     private var gameState: GameState = .simulation
     private var theme: GameTheme = .basic
 
@@ -16,9 +16,9 @@ public class QuantumControlGame: PlaygroundLiveViewable {
     }
 
     /// Use this view to present the game.
-    public lazy var view: SKView = {
+    private lazy var view: PlaygroundSpriteKitView = {
         let frame = CGRect(origin: .zero, size: self.viewSize)
-        let view = SKView(frame: frame)
+        let view = PlaygroundSpriteKitView(frame: frame)
         view.presentScene(scene)
         return view
     }()
