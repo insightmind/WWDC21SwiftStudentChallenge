@@ -7,7 +7,7 @@ import PlaygroundSupport
 public class QuantumControlGame: PlaygroundLiveViewable {
     // MARK: - Properties
     private let viewSize: CGSize = CGSize(width: 600, height: 600)
-    private var gameState: GameState = .game
+    private var gameState: GameState = .simulation
     private var theme: GameTheme = .basic
 
     // MARK: - Public Properties
@@ -34,6 +34,7 @@ public class QuantumControlGame: PlaygroundLiveViewable {
         view.showsDrawCount = isDebug
         view.showsNodeCount = isDebug
         view.showsQuadCount = isDebug
+        view.showsPhysics = isDebug
 
         scene = gameState.loadScene(size: viewSize)
         scene.anchorPoint = .init(x: 0.5, y: 0.5)

@@ -36,30 +36,33 @@ final class RotatingEmitterNode: EmitterNode {
 
     // MARK: - Game Update
     override func onTick(tickCount: Int) {
-        guard tickCount % emitInterval == 0 else {
+        guard tickCount % emitInterval == 0, let emitDirection = emitDirections.first else {
             super.onTick(tickCount: tickCount)
             return
         }
 
+        switch emitDirection {
+        case .left:
+            emitDirections = [rotatesToLeft ? .down : .up]
+
+        case .up:
+            emitDirections = [rotatesToLeft ? .left : .right]
+
+        case .right:
+            emitDirections = [rotatesToLeft ? .up : .down]
+
+        case .down:
+            emitDirections = [rotatesToLeft ? .right : .left]
+
+        default:
+            break
+        }
+
         let delayAction = SKAction.wait(forDuration: 0.4)
-        let action = SKAction.rotate(byAngle: rotatesToLeft ? -.pi / 2 : .pi / 2, duration: 0.5)
+        let action = SKAction.rotate(toAngle: emitDirection.rotationInRadians, duration: 0.5, shortestUnitArc: true)
         let sequence = SKAction.sequence([delayAction, action])
 
         spriteNode.run(sequence)
-
-        switch emitDirection {
-        case .left:
-            emitDirection = rotatesToLeft ? .down : .up
-
-        case .up:
-            emitDirection = rotatesToLeft ? .left : .right
-
-        case .right:
-            emitDirection = rotatesToLeft ? .up : .down
-
-        case .down:
-            emitDirection = rotatesToLeft ? .right : .left
-        }
 
         super.onTick(tickCount: tickCount)
     }

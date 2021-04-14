@@ -1,22 +1,20 @@
 import SpriteKit
 
-class TransmitterNode: GridNode {
+class TransmitterNode: EmissionInteractingNode {
+    // MARK: - Subnode
+    private lazy var shapeNode = SKShapeNode(rectOf: sizePerGrid)
+
     // MARK: - Properties
-    private var virtualEmitter: [EmitterNode] = []
-    private var virtualAbsorber: [AbsorberNode] = []
-
-    override init() {
+    init(receiveFrom receiveDirections: Set<GridDirection> = [], transmitTo transmitDirections: Set<GridDirection> = []) {
         super.init()
-        zPosition = 100
-    }
+        self.receiveDirections = receiveDirections
+        self.emitDirections = transmitDirections
 
-    // MARK: - Game Updates
-    override func onTick(tickCount: Int) {
-        virtualEmitter.forEach { $0.onTick(tickCount: tickCount) }
-        virtualAbsorber.forEach { $0.onTick(tickCount: tickCount) }
+        addChild(shapeNode)
+        shapeNode.fillColor = .red
     }
 
     override func layoutNode() {
-        // TODO: Implement this
+        shapeNode.path = UIBezierPath(rect: .init(origin: .init(x: -sizePerGrid.width / 2, y: -sizePerGrid.height / 2), size: sizePerGrid)).cgPath
     }
 }

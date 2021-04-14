@@ -1,17 +1,13 @@
 import SpriteKit
 
 final class StaticEmitterNode: EmitterNode {
-    // MARK: - Properties
-    override var emitDirection: GridDirection {
-        didSet { reconfigureNode() }
-    }
-
     // MARK: - Childnodes
     private let spriteNode: SKSpriteNode = .init(imageNamed: "Images/Nodes/Emitter/Emitter_single")
 
     // MARK: - Initialization
-    override init() {
+    init(emitTo emitDirection: GridDirection) {
         super.init()
+        emitDirections = [emitDirection]
         configureNode()
     }
 
@@ -24,19 +20,8 @@ final class StaticEmitterNode: EmitterNode {
     }
 
     private func reconfigureNode() {
-        switch emitDirection {
-        case .left:
-            spriteNode.zRotation = .pi / 2
-
-        case .up:
-            spriteNode.zRotation = 0
-
-        case .right:
-            spriteNode.zRotation = -.pi / 2
-
-        case .down:
-            spriteNode.zRotation = .pi
-        }
+        guard let emitDirection = emitDirections.first else { return }
+        spriteNode.zRotation = emitDirection.rotationInRadians + .pi / 2
     }
 
     override func layoutNode() {

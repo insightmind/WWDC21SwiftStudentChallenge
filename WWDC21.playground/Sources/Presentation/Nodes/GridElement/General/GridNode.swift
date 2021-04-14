@@ -1,6 +1,9 @@
 import SpriteKit
 
 class GridNode: SKNode {
+    // MARK: - Properties
+    weak var gridWorld: GridWorldReference?
+
     let size: GridSize = .init(width: 1, height: 1)
     var sizePerGrid: CGSize = .init(width: 50, height: 50) {
         didSet { layoutNode() }

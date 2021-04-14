@@ -10,13 +10,25 @@ import SpriteKit
  * such as their expected models
  */
 enum GameState {
-    case game
+    case menu
+    case editor
+    case simulation
+    case levelBuilder
 
     /// Loads the associated scene and assigns the necessary parameters
     func loadScene(size: CGSize) -> FlowableScene {
         switch self {
-        case .game:
-            return GameScene(size: size)
+        case .menu:
+            return SimulationScene(size: size)
+
+        case .editor:
+            return SimulationScene(size: size)
+
+        case .simulation:
+            return SimulationScene(size: size)
+
+        case .levelBuilder:
+            return SimulationScene(size: size)
         }
     }
 }

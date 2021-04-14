@@ -3,6 +3,7 @@
  */
 
 import PlaygroundSupport
+import SpriteKit
 
 let game = QuantumControlGame()
-PlaygroundSupport.PlaygroundPage.current.setLiveView(game)
+PlaygroundPage.current.setLiveView(game)
