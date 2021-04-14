@@ -20,6 +20,8 @@ class SimulationScene: MovableScene {
     private let receiverTop: ReceiverNode = ReceiverNode(receiveFrom: .leftDown)
     private let receiverBottom: ReceiverNode = ReceiverNode(receiveFrom: .leftUp)
 
+    private let mirror: MirrorNode = MirrorNode()
+
     override func configureScene() {
         super.configureScene()
 
@@ -40,6 +42,8 @@ class SimulationScene: MovableScene {
 
         gridWorld.placeElement(receiverTop, at: .init(xIndex: 11, yIndex: 10))
         gridWorld.placeElement(receiverBottom, at: .init(xIndex: 11, yIndex: 4))
+
+        gridWorld.placeElement(mirror, at: .init(xIndex: 2, yIndex: 10))
         // END: DEBUG NODES
         
         configurePhysicsWorld()
@@ -69,7 +73,7 @@ class SimulationScene: MovableScene {
 extension SimulationScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         guard let emissionNode: EmissionNode = (contact.bodyA.node as? EmissionNode) ?? (contact.bodyB.node as? EmissionNode) else { return }
-        guard let interactorNode: EmissionInteractingNode = (contact.bodyA.node as? EmissionInteractingNode) ?? (contact.bodyB.node as? EmissionInteractingNode) else { return }
+        guard let interactorNode: EmissionInteractor = (contact.bodyA.node as? EmissionInteractor) ?? (contact.bodyB.node as? EmissionInteractor) else { return }
         interactorNode.handle(emissionNode)
     }
 }

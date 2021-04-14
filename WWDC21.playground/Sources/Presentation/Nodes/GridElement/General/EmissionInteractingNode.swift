@@ -1,6 +1,6 @@
 import SpriteKit
 
-class EmissionInteractingNode: GridNode {
+class EmissionInteractingNode: GridNode, EmissionInteractor {
     // MARK: - Subtypes
     enum Constants {
         static let emitterNozzleName: String = "Images/Nodes/Emitter-Nozzle"
@@ -25,6 +25,9 @@ class EmissionInteractingNode: GridNode {
         let fadeAction = SKAction.fadeAlpha(to: 0, duration: 0.05)
         let removeAction = SKAction.removeFromParent()
         emission.run(.sequence([fadeAction, removeAction]))
+
+        guard let emissionMovement = emission.physicsBody?.velocity else { return }
+        animateReceiver(emissionDirection: emissionMovement)
     }
 
     func emit() {
@@ -51,7 +54,6 @@ class EmissionInteractingNode: GridNode {
             node.size = sizePerGrid
             addChild(node)
             node.zRotation = 2 * .pi - direction.rotationInRadians
-            node.isLigthningEnabled = true
         }
 
         receiveDirections.forEach { direction in
@@ -59,12 +61,10 @@ class EmissionInteractingNode: GridNode {
             node.size = sizePerGrid
             addChild(node)
             node.zRotation = 2 * .pi - direction.rotationInRadians
-            node.isLigthningEnabled = true
         }
 
         let body = emitDirections.isEmpty ? SKSpriteNode(imageNamed: Constants.receiverBodyName) : SKSpriteNode(imageNamed: Constants.emitterBodyName)
         body.size = sizePerGrid
-        body.isLigthningEnabled = true
         addChild(body)
     }
 
@@ -77,6 +77,17 @@ class EmissionInteractingNode: GridNode {
         let sequence = SKAction.sequence([scaleDown, scaleUp, scaleReturn])
 
         self.run(sequence)
+    }
+
+    private func animateReceiver(emissionDirection: CGVector) {
+        guard emitDirections.isEmpty else { return }
+        let previousPosition = position
+        let moveAction = SKAction.move(by: emissionDirection.normalized, duration: 0.1)
+        moveAction.timingMode = .easeOut
+        let moveBackAction = SKAction.move(to: previousPosition, duration: 0.3)
+        moveBackAction.timingMode = .easeInEaseOut
+
+        self.run(.sequence([moveAction, moveBackAction]))
     }
 
     // MARK: - PhysicsShape loading

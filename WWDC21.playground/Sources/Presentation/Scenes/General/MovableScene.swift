@@ -51,7 +51,7 @@ class MovableScene: FlowableScene {
 
         default:
             let scale = previousCameraScale * 1 / sender.scale
-            camera.setScale(min(4, max(0.5, scale)))
+            camera.setScale(min(2, max(0.5, scale)))
         }
     }
 

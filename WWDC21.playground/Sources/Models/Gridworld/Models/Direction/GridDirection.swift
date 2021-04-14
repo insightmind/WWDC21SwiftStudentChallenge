@@ -1,6 +1,6 @@
 import CoreGraphics
 
-enum GridDirection {
+enum GridDirection: CaseIterable {
     case left
     case leftUp
     case leftDown

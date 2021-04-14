@@ -28,7 +28,7 @@ public class QuantumControlGame: PlaygroundLiveViewable {
     // MARK: - Initialization
     /// Starts the game. You can then use the view to show it on screen.
     /// - Parameter isDebug: If true the SpriteKit debug menu is shown
-    public init(isDebug: Bool = true) {
+    public init(isDebug: Bool = false) {
         view.showsFPS = isDebug
         view.showsFields = isDebug
         view.showsDrawCount = isDebug
@@ -39,5 +39,14 @@ public class QuantumControlGame: PlaygroundLiveViewable {
         scene = gameState.loadScene(size: viewSize)
         scene.anchorPoint = .init(x: 0.5, y: 0.5)
         view.presentScene(scene)
+
+        let blurView = BlurView()
+        view.addSubview(blurView)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+
+        blurView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        blurView.leadingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }

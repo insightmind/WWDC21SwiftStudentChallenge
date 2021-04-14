@@ -78,7 +78,7 @@ final class GridWorldNode: SKNode {
 extension GridWorldNode: GridWorldReference {
     func emitQuantum(from emitterPosition: GridPosition, using direction: GridDirection) {
         let emission = EmissionNode()
-        let velocityFactor = CGPoint(x: 5 * CGFloat(sizePerGrid.width), y: 5 * CGFloat(sizePerGrid.height))
+        let velocityFactor = CGPoint(x: 7.5 * CGFloat(sizePerGrid.width), y: 7.5 * CGFloat(sizePerGrid.height))
         emission.physicsBody?.setMoveDirection(direction: direction, velocityFactor: velocityFactor)
 
         let realEmitterPosition = realPosition(for: emitterPosition)

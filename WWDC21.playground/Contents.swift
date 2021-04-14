@@ -5,5 +5,5 @@
 import PlaygroundSupport
 import SpriteKit
 
-let game = QuantumControlGame()
+let game = QuantumControlGame(isDebug: true)
 PlaygroundPage.current.setLiveView(game)
