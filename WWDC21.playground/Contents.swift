@@ -1,9 +1,9 @@
 /*:
- ![Logo](Images/Playground/QuantumControl_Logo.png width="700")
+ ![Logo](Images/Playground/QuantumControl-Logo.png width="700")
  */
 
 import PlaygroundSupport
 import SpriteKit
 
-let game = QuantumControlGame(isDebug: true)
+let game = QuantumControlGame(isDebug: false)
 PlaygroundPage.current.setLiveView(game)

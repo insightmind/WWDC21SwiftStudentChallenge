@@ -3,22 +3,19 @@ import SpriteKit
 final class GridWorldNode: SKNode {
     // MARK: - Properties
     private let world: GridWorld
-    var realSize: CGSize {
-        didSet {
-            layoutWorld()
-        }
+    var realSize: CGSize { .init(width: CGFloat(world.size.width) * sizePerGrid.width, height: sizePerGrid.height * CGFloat(world.size.height)) }
+    var sizePerGrid: CGSize = .init(width: 30, height: 30) {
+        didSet { layoutWorld() }
     }
-
-    private var sizePerGrid: CGSize { .init(width: realSize.width / CGFloat(world.size.width), height: realSize.height / CGFloat(world.size.height)) }
 
     // MARK: - Children
     private var elements: [GridNode] = []
     private lazy var gridNode: GridShapeNode = .init(gridSize: world.size, realSize: realSize)
 
     // MARK: - Initialization
-    init(size: CGSize, world: GridWorld) {
+    init(sizePerGrid: CGSize, world: GridWorld) {
         self.world = world
-        self.realSize = size
+        self.sizePerGrid = sizePerGrid
         super.init()
         configureNode()
     }
@@ -39,7 +36,9 @@ final class GridWorldNode: SKNode {
         gridNode = .init(gridSize: world.size, realSize: realSize)
         configureNode()
 
-        elements.forEach { element in
+        let previousElements = elements
+        elements.removeAll()
+        previousElements.forEach { element in
             let position = self.position(of: element)
             element.removeFromParent()
             placeElement(element, at: position)
@@ -78,13 +77,12 @@ final class GridWorldNode: SKNode {
 extension GridWorldNode: GridWorldReference {
     func emitQuantum(from emitterPosition: GridPosition, using direction: GridDirection) {
         let emission = EmissionNode()
-        let velocityFactor = CGPoint(x: 7.5 * CGFloat(sizePerGrid.width), y: 7.5 * CGFloat(sizePerGrid.height))
-        emission.physicsBody?.setMoveDirection(direction: direction, velocityFactor: velocityFactor)
-
         let realEmitterPosition = realPosition(for: emitterPosition)
         let realEmissionPosition: CGPoint = .init(x: realEmitterPosition.x + direction.vector.dx * 10, y: realEmitterPosition.y + direction.vector.dy * 10)
         emission.position = realEmissionPosition
-        emission.zRotation = direction.rotationInRadians
+        emission.sizePerGrid = sizePerGrid
+        emission.gridWorld = self
+        emission.setMovement(direction: direction)
         addChild(emission)
     }
 

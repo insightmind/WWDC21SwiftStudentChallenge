@@ -19,13 +19,11 @@ class MirrorNode: GridNode, EmissionInteractor {
         let rect = CGRect(origin: .init(x: -sizePerGrid.width / 2, y: -sizePerGrid.height / 2), size: sizePerGrid)
         physicsBody = SKPhysicsBody(edgeFrom: .init(x: rect.minX, y: rect.minY), to: .init(x: rect.maxX, y: rect.maxY))
         physicsBody?.isDynamic = false
-        physicsBody?.receiveEmissions(from: GridDirection.allCases)
+        physicsBody?.receiveEmissions(from: [.up])
     }
 
     // MARK: - Emission Handling
     func handle(_ emission: EmissionNode) {
-        guard let velocity = emission.physicsBody?.velocity else { return }
-        print("MIRROR \(velocity)")
-        //emission.physicsBody?.velocity = .init(dx: velocity.dy, dy: velocity.dx)
+        emission.setMovement(direction: .left)
     }
 }

@@ -1,8 +1,11 @@
 import SpriteKit
 
 final class EmissionNode: GridNode {
+    // MARK: - Properties
+    private let lifeTime: TimeInterval = 100
+
     // MARK: - Childnodes
-    private lazy var glowNode: SKShapeNode = .init()
+    private lazy var spriteNode: SKSpriteNode = .init(imageNamed: "Images/Nodes/Emission")
 
     // MARK: - Initialization
     override init() {
@@ -16,17 +19,25 @@ final class EmissionNode: GridNode {
         physicsBody = .init(rectangleOf: .init(width: 1, height: 1))
         physicsBody?.affectedByGravity = false
         physicsBody?.friction = 0
+        physicsBody?.allowsRotation = false
+        physicsBody?.usesPreciseCollisionDetection = true
         zPosition = -1
 
-        addChild(glowNode)
-        glowNode.fillColor = UIColor.vividBlue
-        glowNode.strokeColor = UIColor.vividBlue.withAlphaComponent(0.1)
-        glowNode.zPosition = -1
-        glowNode.glowWidth = 10
+        addChild(spriteNode)
+        layoutNode()
+
+        let lifetimeAction = SKAction.wait(forDuration: lifeTime)
+        run(.sequence([lifetimeAction, SKAction.removeFromParent()]))
     }
 
     override func layoutNode() {
-        let size = CGSize(width: sizePerGrid.width / 4, height: sizePerGrid.height / 4)
-        glowNode.path = UIBezierPath(ovalIn: .init(origin: .init(x: -size.width / 2, y: -size.height / 2), size: size)).cgPath
+        spriteNode.size = sizePerGrid
+    }
+
+    // MARK: - Movement
+    func setMovement(direction: GridDirection) {
+        let velocityFactor = CGPoint(x: 7.5 * CGFloat(sizePerGrid.width), y: 7.5 * CGFloat(sizePerGrid.height))
+        physicsBody?.setMoveDirection(direction: direction, velocityFactor: velocityFactor)
+        spriteNode.zRotation = 2 * .pi - direction.rotationInRadians
     }
 }

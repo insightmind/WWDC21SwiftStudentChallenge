@@ -4,6 +4,7 @@ class MovableScene: FlowableScene {
     // MARK: - Properties
     private var previousCameraScale: CGFloat = 1.0
     private var previousCameraPosition: CGPoint = .init()
+    var playableArea: CGRect = .init(x: -200, y: -200, width: 400, height: 400)
 
     // MARK: - Lifecycle
     override func configureScene() {
@@ -66,7 +67,8 @@ class MovableScene: FlowableScene {
             fallthrough
 
         default:
-            camera.position = .init(x: previousCameraPosition.x - translation.x * camera.xScale, y: previousCameraPosition.y + translation.y * camera.yScale)
+            let newPosition = CGPoint(x: previousCameraPosition.x - translation.x * camera.xScale, y: previousCameraPosition.y + translation.y * camera.yScale)
+            camera.position = .init(x: max(playableArea.minX, min(playableArea.maxX, newPosition.x)), y: max(playableArea.minY, min(playableArea.maxY, newPosition.y)))
         }
     }
 }

@@ -29,7 +29,7 @@ extension SKPhysicsBody {
     }
 
     func setMoveDirection(direction: GridDirection, velocityFactor: CGPoint) {
-        collisionBitMask = ~(0b0 | direction.moveBitMask) & 0b1111_1111
+        collisionBitMask = 0b0//~(0b0 | direction.moveBitMask) & 0b1111_1111
         contactTestBitMask = direction.moveBitMask
         velocity = .init(dx: direction.vector.dx * velocityFactor.x, dy: direction.vector.dy * velocityFactor.y)
         categoryBitMask = 0b1_0000_0000

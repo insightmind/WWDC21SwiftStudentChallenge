@@ -1,6 +1,6 @@
 import Foundation
 
-struct GridPosition {
+struct GridPosition: Codable {
     let xIndex: Int
     let yIndex: Int
 }

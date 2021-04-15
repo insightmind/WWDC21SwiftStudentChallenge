@@ -1,6 +1,6 @@
 import Foundation
 
-struct GridSize {
+struct GridSize: Codable {
     let width: Int
     let height: Int
 }

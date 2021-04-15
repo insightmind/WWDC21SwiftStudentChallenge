@@ -1,14 +1,14 @@
+import SwiftUI
 import UIKit
 
-class BlurView: UIVisualEffectView {
-    // MARK: - Initialization
-    init() {
-        super.init(effect: UIBlurEffect(style: .regular))
-        layer.zPosition = 100
+struct BlurView: UIViewRepresentable {
+    var style: UIBlurEffect.Style
+
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView {
+        UIVisualEffectView()
     }
 
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) {
+        uiView.effect = UIBlurEffect(style: style)
     }
 }
