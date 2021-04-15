@@ -52,7 +52,8 @@ class MovableScene: FlowableScene {
 
         default:
             let scale = previousCameraScale * 1 / sender.scale
-            camera.setScale(min(2, max(0.5, scale)))
+            camera.setScale(min(1, max(0.5, scale)))
+            updatePosition()
         }
     }
 
@@ -68,8 +69,20 @@ class MovableScene: FlowableScene {
 
         default:
             let newPosition = CGPoint(x: previousCameraPosition.x - translation.x * camera.xScale, y: previousCameraPosition.y + translation.y * camera.yScale)
-            camera.position = .init(x: max(playableArea.minX, min(playableArea.maxX, newPosition.x)), y: max(playableArea.minY, min(playableArea.maxY, newPosition.y)))
+            camera.position = .init(
+                x: max(playableArea.minX + frame.width * camera.xScale / 2 - 50, min(playableArea.maxX - frame.width * camera.xScale / 2 + 50, newPosition.x)),
+                y: max(playableArea.minY + frame.height * camera.yScale / 2 - 50, min(playableArea.maxY - frame.height * camera.yScale / 2 + 50, newPosition.y))
+            )
         }
+    }
+
+    private func updatePosition() {
+        guard let camera = camera else { return }
+
+        let newXPosition: CGFloat = max(playableArea.minX + frame.width * camera.xScale / 2 - 50, min(playableArea.maxX - frame.width * camera.xScale / 2 + 50, camera.position.x))
+        let newYPosition: CGFloat = max(playableArea.minY + frame.height * camera.yScale / 2 - 50, min(playableArea.maxY - frame.height * camera.yScale / 2 + 50, camera.position.y))
+
+        camera.position = .init(x: newXPosition, y: newYPosition)
     }
 }
 

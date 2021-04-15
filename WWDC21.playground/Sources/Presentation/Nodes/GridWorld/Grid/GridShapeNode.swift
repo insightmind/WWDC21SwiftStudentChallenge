@@ -10,13 +10,12 @@ final class GridShapeNode: SKNode, EmissionInteractor {
     // MARK: - Properties
     private let gridSize: GridSize
     private let realSize: CGSize
-    private let tintColor: UIColor = UIColor.gray.withAlphaComponent(0.5)
-    private let lineWidth: CGFloat = 2
+    private let tintColor: UIColor = UIColor.black.withAlphaComponent(0.3)
+    private let lineWidth: CGFloat = 4
     private var sizePerGrid: CGSize { .init(width: realSize.width / CGFloat(gridSize.width), height: realSize.height / CGFloat(gridSize.height)) }
 
     // MARK: - Subnodes
-    private var verticalShapeNodes: [SKShapeNode] = []
-    private var horizontalShapeNodes: [SKShapeNode] = []
+    private var backgroundNode: SKShapeNode = .init()
 
     // MARK: - Initialization
     init(gridSize: GridSize, realSize: CGSize) {
@@ -36,8 +35,9 @@ final class GridShapeNode: SKNode, EmissionInteractor {
     // MARK: - Configuration
     private func layoutNode() {
         children.forEach { $0.removeFromParent() }
-        verticalShapeNodes.removeAll()
-        horizontalShapeNodes.removeAll()
+        backgroundNode.removeFromParent()
+
+        drawBackgroundNode()
 
         drawVerticalLines()
         drawHorizontalLines()
@@ -51,6 +51,14 @@ final class GridShapeNode: SKNode, EmissionInteractor {
     private func configurePhysicsBody() {
         physicsBody = .init(edgeLoopFrom: .init(origin: .zero, size: realSize))
         physicsBody?.receiveEmissions(from: GridDirection.allCases)
+    }
+
+    // MARK: - Draw Background Node
+    private func drawBackgroundNode() {
+        backgroundNode = .init(rectOf: realSize)
+        backgroundNode.fillColor = .darkPurple
+        backgroundNode.position = .init(x: realSize.width / 2, y: realSize.height / 2)
+        addChild(backgroundNode)
     }
 
     // MARK: - Draw Border
@@ -123,8 +131,8 @@ final class GridShapeNode: SKNode, EmissionInteractor {
             let lineNode = SKShapeNode(path: path)
             lineNode.strokeColor = tintColor
             lineNode.lineWidth = lineWidth
+            lineNode.alpha = tintColor.cgColor.alpha
 
-            verticalShapeNodes.append(lineNode)
             addChild(lineNode)
         }
     }
@@ -141,8 +149,8 @@ final class GridShapeNode: SKNode, EmissionInteractor {
             let lineNode = SKShapeNode(path: path)
             lineNode.strokeColor = tintColor
             lineNode.lineWidth = lineWidth
+            lineNode.alpha = tintColor.cgColor.alpha
 
-            verticalShapeNodes.append(lineNode)
             addChild(lineNode)
         }
     }

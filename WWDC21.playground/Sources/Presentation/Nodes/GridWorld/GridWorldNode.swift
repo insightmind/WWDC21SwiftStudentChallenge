@@ -50,6 +50,12 @@ final class GridWorldNode: SKNode {
         }
     }
 
+    // MARK: - Level Loading
+    func loadLevel(_ level: Level) {
+        level.allElements.forEach { element in
+            self.placeElement(element.generateNode(), at: element.position)
+        }
+    }
 
     // MARK: - Game Updates
     func onTick(tickCount: Int) {
@@ -57,7 +63,7 @@ final class GridWorldNode: SKNode {
     }
 
     // MARK: - Element Placement
-    func placeElement(_ element: GridNode, at position: GridPosition) {
+    private func placeElement(_ element: GridNode, at position: GridPosition) {
         addChild(element)
         element.position = realPosition(for: position)
         element.sizePerGrid = sizePerGrid

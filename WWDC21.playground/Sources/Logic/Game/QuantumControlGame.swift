@@ -8,7 +8,6 @@ public struct QuantumControlGame: View {
     // MARK: - Properties
     private static let viewSize: CGSize = CGSize(width: 750, height: 750)
     private var gameState: GameState = .simulation
-    private var theme: GameTheme = .basic
 
     // MARK: - Public Properties
     @ObservedObject
@@ -20,12 +19,9 @@ public struct QuantumControlGame: View {
             SpriteView(scene: scene)
                 .frame(width: QuantumControlGame.viewSize.width, height: QuantumControlGame.viewSize.width)
                 .ignoresSafeArea()
-
-            BlurView(style: .systemThinMaterialDark)
-                .ignoresSafeArea()
         }
-
     }
+
 
     // MARK: - Initialization
     /// Starts the game. You can then use the view to show it on screen.

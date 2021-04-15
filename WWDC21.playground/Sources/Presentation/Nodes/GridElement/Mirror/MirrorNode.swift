@@ -19,7 +19,7 @@ class MirrorNode: GridNode, EmissionInteractor {
         let rect = CGRect(origin: .init(x: -sizePerGrid.width / 2, y: -sizePerGrid.height / 2), size: sizePerGrid)
         physicsBody = SKPhysicsBody(edgeFrom: .init(x: rect.minX, y: rect.minY), to: .init(x: rect.maxX, y: rect.maxY))
         physicsBody?.isDynamic = false
-        physicsBody?.receiveEmissions(from: [.up])
+        physicsBody?.receiveEmissions(from: [.up, .leftUp])
     }
 
     // MARK: - Emission Handling
