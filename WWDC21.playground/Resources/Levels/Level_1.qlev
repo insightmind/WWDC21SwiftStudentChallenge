@@ -1,0 +1,147 @@
+{
+  "world" : {
+    "size" : {
+      "width" : 13,
+      "height" : 13
+    }
+  },
+  "elements" : [
+    {
+      "type" : "emitter",
+      "element" : {
+        "emissionGroup" : "red",
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 3
+        },
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 11,
+            "xIndex" : 3
+          },
+          "initialProgress" : 1
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 13,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 1,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "left",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "red"
+      }
+    }
+  ]
+}

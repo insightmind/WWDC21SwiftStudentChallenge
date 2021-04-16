@@ -6,6 +6,7 @@ struct GridReceiver: GridElement {
     var position: GridPosition
     var receiveDirection: GridDirection
     var receiveGroup: GridInteractionGroup
+    var movableOption: GridMovableOption?
 
     func generateNode(using world: GridPlacementReference) -> GridNode {
         let node = ReceiverNode(receiveFrom: receiveDirection, group: receiveGroup)

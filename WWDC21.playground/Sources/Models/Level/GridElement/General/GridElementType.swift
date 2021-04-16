@@ -5,7 +5,6 @@ enum GridElementType: Codable {
     case transmitter(GridTransmitter)
     case receiver(GridReceiver)
     case mirror(GridMirror)
-    case movableMirror(GridMovableMirror)
     case wall(GridWall)
     case groupWall(GridGroupWall)
 
@@ -19,7 +18,6 @@ enum GridElementType: Codable {
         case transmitter
         case receiver
         case mirror
-        case movableMirror
         case wall
         case groupWall
     }
@@ -39,9 +37,6 @@ enum GridElementType: Codable {
 
         case Identifier.mirror.rawValue:
             self = .mirror(try container.decode(GridMirror.self, forKey: .element))
-
-        case Identifier.movableMirror.rawValue:
-            self = .movableMirror(try container.decode(GridMovableMirror.self, forKey: .element))
 
         case Identifier.wall.rawValue:
             self = .wall(try container.decode(GridWall.self, forKey: .element))
@@ -72,10 +67,6 @@ enum GridElementType: Codable {
 
         case let .mirror(node):
             try container.encode(Identifier.mirror.rawValue, forKey: .type)
-            try container.encode(node, forKey: .element)
-
-        case let .movableMirror(node):
-            try container.encode(Identifier.movableMirror.rawValue, forKey: .type)
             try container.encode(node, forKey: .element)
 
         case let .wall(node):

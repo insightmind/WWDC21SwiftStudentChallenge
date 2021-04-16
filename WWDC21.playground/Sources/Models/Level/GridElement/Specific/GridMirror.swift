@@ -5,6 +5,7 @@ struct GridMirror: GridElement {
     
     var position: GridPosition
     var initialRotation: GridDirection
+    var movableOption: GridMovableOption?
 
     func generateNode(using world: GridPlacementReference) -> GridNode {
         let node = MirrorNode()

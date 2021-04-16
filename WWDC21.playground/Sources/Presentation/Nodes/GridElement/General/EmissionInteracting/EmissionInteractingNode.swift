@@ -37,12 +37,12 @@ class EmissionInteractingNode: GridNode, EmissionInteractor {
     }
 
     func emit() {
-        guard !emitDirections.isEmpty, let position = gridWorld?.position(of: self) else { return }
+        guard !emitDirections.isEmpty else { return }
         animateEmitter()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) { [weak self] in
             guard let self = self else { return }
-            self.emitDirections.forEach { self.gridWorld?.emitQuantum(from: position, using: $0, group: self.group) }
+            self.emitDirections.forEach { self.gridWorld?.emitQuantum(from: self.position, using: $0, group: self.group) }
             self.emitAudioNode.run(self.emitAction)
         }
     }

@@ -23,9 +23,6 @@ struct Level: Codable {
             case let .mirror(node):
                 return node
 
-            case let .movableMirror(node):
-                return node
-
             case let .wall(node):
                 return node
 
@@ -36,7 +33,7 @@ struct Level: Codable {
     }
 
     // MARK: - Initializer
-    init(world: GridWorld, elements: [GridElement]) {
+    init(world: GridWorld = .init(), elements: [GridElement] = []) {
         self.world = world
         self.elements = elements.map(\.type)
     }

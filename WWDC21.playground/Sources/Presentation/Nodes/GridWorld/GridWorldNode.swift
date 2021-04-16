@@ -2,14 +2,15 @@ import SpriteKit
 
 final class GridWorldNode: SKNode, GridPlacementReference {
     // MARK: - Properties
-    private let world: GridWorld
-    var realSize: CGSize { .init(width: CGFloat(world.size.width) * sizePerGrid.width, height: sizePerGrid.height * CGFloat(world.size.height)) }
+    var realSize: CGSize { .init(width: CGFloat(level.world.size.width) * sizePerGrid.width, height: sizePerGrid.height * CGFloat(level.world.size.height)) }
     var sizePerGrid: CGSize = .init(width: 30, height: 30) {
         didSet {
             layoutWorld()
         }
     }
 
+    // MARK: - Private Properties
+    private var level: Level = .init()
     private var enabledGroups: Set<GridInteractionGroup> = [] {
         didSet {
             elements
@@ -20,11 +21,10 @@ final class GridWorldNode: SKNode, GridPlacementReference {
 
     // MARK: - Children
     private var elements: [GridNode] = []
-    private lazy var gridNode: GridShapeNode = .init(gridSize: world.size, realSize: realSize)
+    private lazy var gridNode: GridShapeNode = .init(gridSize: level.world.size, realSize: realSize)
 
     // MARK: - Initialization
-    init(sizePerGrid: CGSize, world: GridWorld) {
-        self.world = world
+    init(sizePerGrid: CGSize) {
         self.sizePerGrid = sizePerGrid
         super.init()
         configureNode()
@@ -43,7 +43,7 @@ final class GridWorldNode: SKNode, GridPlacementReference {
 
     private func layoutWorld() {
         gridNode.removeFromParent()
-        gridNode = .init(gridSize: world.size, realSize: realSize)
+        gridNode = .init(gridSize: level.world.size, realSize: realSize)
         configureNode()
 
         let previousElements = elements
@@ -63,8 +63,10 @@ final class GridWorldNode: SKNode, GridPlacementReference {
 
     // MARK: - Level Loading
     func loadLevel(_ level: Level) {
+        layoutWorld()
+
         level.allElements.forEach { element in
-            self.placeElement(element.generateNode(using: self))
+            self.placeElement(element.generatePlaceableNode(using: self))
         }
     }
 
@@ -84,17 +86,16 @@ final class GridWorldNode: SKNode, GridPlacementReference {
     // MARK: - Helper Methods
     internal func realPosition(for gridPosition: GridPosition) -> CGPoint {
         return .init(
-            x: realSize.width * CGFloat(gridPosition.xIndex) / CGFloat(world.size.width) - sizePerGrid.width / 2,
-            y: realSize.height * CGFloat(gridPosition.yIndex) / CGFloat(world.size.height) - sizePerGrid.height / 2
+            x: realSize.width * CGFloat(gridPosition.xIndex) / CGFloat(level.world.size.width) - sizePerGrid.width / 2,
+            y: realSize.height * CGFloat(gridPosition.yIndex) / CGFloat(level.world.size.height) - sizePerGrid.height / 2
         )
     }
 }
 
 extension GridWorldNode: GridWorldReference {
-    func emitQuantum(from emitterPosition: GridPosition, using direction: GridDirection, group: GridInteractionGroup) {
+    func emitQuantum(from position: CGPoint, using direction: GridDirection, group: GridInteractionGroup) {
         let emission = EmissionNode(group: group)
-        let realEmitterPosition = realPosition(for: emitterPosition)
-        let realEmissionPosition: CGPoint = .init(x: realEmitterPosition.x + direction.vector.dx * 10, y: realEmitterPosition.y + direction.vector.dy * 10)
+        let realEmissionPosition: CGPoint = .init(x: position.x + direction.vector.dx * 10, y: position.y + direction.vector.dy * 10)
         emission.position = realEmissionPosition
         emission.sizePerGrid = sizePerGrid
         emission.gridWorld = self

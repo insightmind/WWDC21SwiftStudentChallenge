@@ -1,0 +1,197 @@
+{
+  "world" : {
+    "size" : {
+      "width" : 13,
+      "height" : 13
+    }
+  },
+  "elements" : [
+    {
+      "type" : "emitter",
+      "element" : {
+        "emissionGroup" : "green",
+        "emitDirection" : "up",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 2
+        },
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 2,
+            "xIndex" : 5
+          },
+          "initialProgress" : 0.5
+        }
+      }
+    },
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "down",
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 2
+        },
+        "emissionGroup" : "red"
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "up",
+          "down"
+        ],
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 2
+        },
+        "emitDirections" : [
+          "rightUp",
+          "rightDown"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "leftDown"
+        ],
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 5
+        },
+        "emitDirections" : [
+          "rightDown"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "leftUp"
+        ],
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 5
+        },
+        "emitDirections" : [
+          "rightUp"
+        ]
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "leftDown",
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "red"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "leftUp",
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "green"
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 13,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 1,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "mirror",
+      "element" : {
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 5,
+            "xIndex" : 8
+          },
+          "initialProgress" : 0.5
+        },
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 8
+        },
+        "initialRotation" : "up"
+      }
+    }
+  ]
+}

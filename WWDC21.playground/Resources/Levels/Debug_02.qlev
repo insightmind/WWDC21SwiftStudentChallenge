@@ -1,0 +1,234 @@
+{
+  "world" : {
+    "size" : {
+      "width" : 13,
+      "height" : 13
+    }
+  },
+  "elements" : [
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 3
+        },
+        "emissionGroup" : "red"
+      }
+    },
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 3
+        },
+        "emissionGroup" : "green"
+      }
+    },
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 3
+        },
+        "emissionGroup" : "yellow"
+      }
+    },
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 3
+        },
+        "emissionGroup" : "blue"
+      }
+    },
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 3
+        },
+        "emissionGroup" : "pink"
+      }
+    },
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 3
+        },
+        "emissionGroup" : "orange"
+      }
+    },
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 3
+        },
+        "emissionGroup" : "purple"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "left",
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "red"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "left",
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "green"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "left",
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "yellow"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "left",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "blue"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "left",
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "pink"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "left",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "orange"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "left",
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "purple"
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "green",
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "yellow",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "blue",
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "pink",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "orange",
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "purple",
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 7
+        }
+      }
+    }
+  ]
+}

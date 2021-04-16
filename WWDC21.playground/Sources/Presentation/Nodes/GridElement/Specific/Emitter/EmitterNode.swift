@@ -2,7 +2,7 @@ import SpriteKit
 
 class EmitterNode: EmissionInteractingNode {
     // MARK: - Childnodes
-    var emitInterval: Int = 5
+    var emitInterval: Int = 8
 
     // MARK: - Game Updates
     override func onTick(tickCount: Int) {
