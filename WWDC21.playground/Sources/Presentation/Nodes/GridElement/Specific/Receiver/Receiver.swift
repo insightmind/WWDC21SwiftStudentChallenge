@@ -3,7 +3,7 @@ import SpriteKit
 final class ReceiverNode: EmissionInteractingNode {
     // MARK: - Subnodes
     private let indicatorNode: SKSpriteNode = SKSpriteNode(imageNamed: "Images/Nodes/Receiver-Body-Indicator")
-    private let timeout: TimeInterval = 5.0
+    private let timeout: TimeInterval = 1.5
     private var timer: Timer?
 
     // MARK: - Initialization
@@ -39,8 +39,9 @@ final class ReceiverNode: EmissionInteractingNode {
 
         indicatorNode.removeAllActions()
         let lightAction = SKAction.colorize(withColorBlendFactor: 1.0, duration: 0.1 * timeout)
-        let lightOffAction = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.9 * timeout)
-        let sequence = SKAction.sequence([lightAction, lightOffAction])
+        let waitAction = SKAction.wait(forDuration: 0.7 * timeout)
+        let lightOffAction = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.2 * timeout)
+        let sequence = SKAction.sequence([lightAction, waitAction, lightOffAction])
         indicatorNode.run(sequence)
 
         timer?.invalidate()

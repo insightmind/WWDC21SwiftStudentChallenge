@@ -40,8 +40,8 @@ final class GridShapeNode: SKNode, EmissionInteractor {
 
         drawBackgroundNode()
 
-        drawVerticalLines()
-        drawHorizontalLines()
+        // drawVerticalLines()
+        // drawHorizontalLines()
 
         drawCornerNodes()
         drawSideNodes()

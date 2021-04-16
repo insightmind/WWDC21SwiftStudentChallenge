@@ -7,7 +7,7 @@
 
  # Game Elements
 
- A puzzle contains a variety of different game elements. Here is a short overview over what they do:
+ This game contains a variety of different elements. Here is a short overview over what they do:
 
  ### Emitter
  ![Emitter](Images/PLayground/Emitter.png width="100")

@@ -16,7 +16,7 @@ class SimulationScene: MovableScene, SKPhysicsContactDelegate {
         backgroundColor = .black
         scaleMode = .aspectFill
 
-        guard let level = AvailableLevels.level(index: 2).load() else { return }
+        guard let level = AvailableLevels.level(index: 1).load() else { return }
         addChild(gridWorld)
         gridWorld.loadLevel(level)
 

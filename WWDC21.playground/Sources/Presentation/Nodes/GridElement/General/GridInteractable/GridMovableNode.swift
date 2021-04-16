@@ -70,31 +70,29 @@ final class GridMovableNode: GridNode, GridInteractable {
 
     // MARK: - Interaction
     func onTouchUp(at location: CGPoint) {
+        guard childNode.contains(location - position) else { return }
         updatePosition(for: location)
 
-        guard childNode.contains(location - position), let interactableChild = childNode as? GridInteractable else { return }
+        guard let interactableChild = childNode as? GridInteractable else { return }
         interactableChild.onTouchUp(at: location)
     }
 
     func onTouchDown(at location: CGPoint) {
         updatePosition(for: location)
 
-        guard childNode.contains(location - position), let interactableChild = childNode as? GridInteractable else { return }
+        guard let interactableChild = childNode as? GridInteractable else { return }
         interactableChild.onTouchDown(at: location)
     }
 
     func onTouchMove(at location: CGPoint) {
         updatePosition(for: location)
 
-        guard childNode.contains(location - position), let interactableChild = childNode as? GridInteractable else { return }
+        guard let interactableChild = childNode as? GridInteractable else { return }
         interactableChild.onTouchMove(at: location)
     }
 
     private func updatePosition(for touchLocation: CGPoint) {
-        let normalizedPosition = touchLocation - position
-        guard childNode.contains(normalizedPosition) else { return }
         guard abs(secondPoint.x - firstPoint.x) + abs(secondPoint.y - firstPoint.y) > 0 else { return }
-
         let xProgress = max(0, min(1, abs(touchLocation.x - firstPoint.x) / abs(secondPoint.x - firstPoint.x)))
         let yProgress = max(0, min(1, abs(touchLocation.y - firstPoint.y) / abs(secondPoint.y - firstPoint.y)))
 
@@ -106,7 +104,7 @@ final class GridMovableNode: GridNode, GridInteractable {
             slideProgress = xProgress * 0.5 + yProgress * 0.5
         }
 
-        childNode.position = calculatePosition(for: slideProgress) - position
+        childNode.run(.move(to: calculatePosition(for: slideProgress) - position, duration: 0.1))
         layoutNode()
     }
 }
