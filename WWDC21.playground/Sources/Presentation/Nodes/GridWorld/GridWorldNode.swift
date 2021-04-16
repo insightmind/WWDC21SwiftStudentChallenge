@@ -5,7 +5,17 @@ final class GridWorldNode: SKNode, GridPlacementReference {
     private let world: GridWorld
     var realSize: CGSize { .init(width: CGFloat(world.size.width) * sizePerGrid.width, height: sizePerGrid.height * CGFloat(world.size.height)) }
     var sizePerGrid: CGSize = .init(width: 30, height: 30) {
-        didSet { layoutWorld() }
+        didSet {
+            layoutWorld()
+        }
+    }
+
+    private var enabledGroups: Set<GridInteractionGroup> = [] {
+        didSet {
+            elements
+                .compactMap { $0 as? GroupUpdatable }
+                .forEach { $0.onGroupUpdate(enabledGroups: enabledGroups) }
+        }
     }
 
     // MARK: - Children
@@ -94,5 +104,13 @@ extension GridWorldNode: GridWorldReference {
 
     func position(of element: GridNode) -> GridPosition {
         return .init(xIndex: Int(ceil(element.position.x / sizePerGrid.width)), yIndex: Int(ceil(element.position.y / sizePerGrid.height)))
+    }
+
+    func setGroup(_ group: GridInteractionGroup, isEnabled: Bool) {
+        if isEnabled {
+            enabledGroups.insert(group)
+        } else {
+            enabledGroups.remove(group)
+        }
     }
 }

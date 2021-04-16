@@ -5,9 +5,10 @@ struct GridReceiver: GridElement {
 
     var position: GridPosition
     var receiveDirection: GridDirection
+    var receiveGroup: GridInteractionGroup
 
     func generateNode(using world: GridPlacementReference) -> GridNode {
-        let node = ReceiverNode(receiveFrom: receiveDirection)
+        let node = ReceiverNode(receiveFrom: receiveDirection, group: receiveGroup)
         node.position = world.realPosition(for: position)
         return node
     }

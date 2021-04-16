@@ -6,6 +6,8 @@ enum GridInteractionGroup: String, Codable {
     case green
     case yellow
     case pink
+    case purple
+    case orange
 
     var baseColor: UIColor {
         switch self {
@@ -23,6 +25,12 @@ enum GridInteractionGroup: String, Codable {
 
         case .pink:
             return .init(hex: "ff006e")
+
+        case .purple:
+            return .init(hex: "8338ec")
+
+        case .orange:
+            return .init(hex: "fb5607")
         }
     }
 }

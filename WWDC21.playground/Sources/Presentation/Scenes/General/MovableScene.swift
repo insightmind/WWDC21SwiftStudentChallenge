@@ -6,6 +6,11 @@ class MovableScene: FlowableScene {
     private var previousCameraPosition: CGPoint = .init()
     var playableArea: CGRect = .init(x: -200, y: -200, width: 400, height: 400)
 
+    override var isUserInteractionEnabled: Bool {
+        get { return true }
+        set { /* We do not allow to change user interactability of the scene */ }
+    }
+
     // MARK: - Lifecycle
     override func configureScene() {
         super.configureScene()

@@ -7,6 +7,7 @@ enum GridElementType: Codable {
     case mirror(GridMirror)
     case movableMirror(GridMovableMirror)
     case wall(GridWall)
+    case groupWall(GridGroupWall)
 
     enum CodingKeys: CodingKey {
         case type
@@ -20,6 +21,7 @@ enum GridElementType: Codable {
         case mirror
         case movableMirror
         case wall
+        case groupWall
     }
 
     init(from decoder: Decoder) throws {
@@ -43,6 +45,9 @@ enum GridElementType: Codable {
 
         case Identifier.wall.rawValue:
             self = .wall(try container.decode(GridWall.self, forKey: .element))
+
+        case Identifier.groupWall.rawValue:
+            self = .groupWall(try container.decode(GridGroupWall.self, forKey: .element))
 
         default:
             throw DecodingError.typeMismatch(GridElementType.self, .init(codingPath: decoder.codingPath, debugDescription: "GridElementType decoding failed"))
@@ -75,6 +80,10 @@ enum GridElementType: Codable {
 
         case let .wall(node):
             try container.encode(Identifier.wall.rawValue, forKey: .type)
+            try container.encode(node, forKey: .element)
+
+        case let .groupWall(node):
+            try container.encode(Identifier.groupWall.rawValue, forKey: .type)
             try container.encode(node, forKey: .element)
         }
     }

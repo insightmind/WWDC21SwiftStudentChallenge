@@ -4,11 +4,13 @@ final class ReceiverNode: EmissionInteractingNode {
     // MARK: - Subnodes
     private let indicatorNode: SKSpriteNode = SKSpriteNode(imageNamed: "Images/Nodes/Receiver-Body-Indicator")
     private let timeout: TimeInterval = 5.0
+    private var timer: Timer?
 
     // MARK: - Initialization
-    init(receiveFrom receiveDirection: GridDirection) {
+    init(receiveFrom receiveDirection: GridDirection, group: GridInteractionGroup) {
         super.init()
-        receiveDirections = [receiveDirection]
+        self.group = group
+        self.receiveDirections = [receiveDirection]
 
         configureNode()
         layoutNode()
@@ -40,6 +42,15 @@ final class ReceiverNode: EmissionInteractingNode {
         let lightOffAction = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.9 * timeout)
         let sequence = SKAction.sequence([lightAction, lightOffAction])
         indicatorNode.run(sequence)
+
+        timer?.invalidate()
+        gridWorld?.setGroup(group, isEnabled: true)
+        timer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] timer in
+            timer.invalidate()
+
+            guard let self = self else { return }
+            self.gridWorld?.setGroup(self.group, isEnabled: false)
+        }
 
         super.handle(emission)
     }

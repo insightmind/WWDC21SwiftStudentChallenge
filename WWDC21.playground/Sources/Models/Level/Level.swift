@@ -28,6 +28,9 @@ struct Level: Codable {
 
             case let .wall(node):
                 return node
+
+            case let .groupWall(node):
+                return node
             }
         }
     }
