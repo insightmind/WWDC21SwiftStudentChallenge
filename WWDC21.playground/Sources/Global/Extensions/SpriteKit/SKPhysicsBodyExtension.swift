@@ -39,6 +39,10 @@ extension SKPhysicsBody {
         categoryBitMask = interactorCategory(interactionDirection: directions)
     }
 
+    func collideAll() {
+        categoryBitMask = ~0b0
+    }
+
     private func interactorCategory(interactionDirection directions: [GridDirection]) -> UInt32 {
         var bitmask: UInt32 = 0b0
         for direction in directions { bitmask |= direction.receiveBitMask }

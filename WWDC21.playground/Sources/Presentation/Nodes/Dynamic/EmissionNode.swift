@@ -1,29 +1,30 @@
 import SpriteKit
 
-final class EmissionNode: GridNode {
+final class EmissionNode: GridNode, EmissionInteractor {
     // MARK: - Properties
     private let lifeTime: TimeInterval = 100
+    let group: GridInteractionGroup
 
     // MARK: - Childnodes
     private lazy var spriteNode: SKSpriteNode = .init(imageNamed: "Images/Nodes/Emission")
 
     // MARK: - Initialization
-    override init() {
+    init(group: GridInteractionGroup) {
+        self.group = group
+
         super.init()
+
         configureNode()
         layoutNode()
     }
 
     // MARK: - Configuration
     private func configureNode() {
-        physicsBody = .init(rectangleOf: .init(width: 1, height: 1))
-        physicsBody?.affectedByGravity = false
-        physicsBody?.friction = 0
-        physicsBody?.allowsRotation = false
-        physicsBody?.usesPreciseCollisionDetection = true
         zPosition = -1
 
         addChild(spriteNode)
+        spriteNode.color = group.baseColor
+        spriteNode.colorBlendFactor = 1.0
         layoutNode()
 
         let lifetimeAction = SKAction.wait(forDuration: lifeTime)
@@ -32,6 +33,13 @@ final class EmissionNode: GridNode {
 
     override func layoutNode() {
         spriteNode.size = sizePerGrid
+
+        physicsBody = .init(rectangleOf: .init(width: sizePerGrid.width, height: sizePerGrid.height / 8))
+        physicsBody?.affectedByGravity = false
+        physicsBody?.friction = 0
+        physicsBody?.allowsRotation = false
+        physicsBody?.usesPreciseCollisionDetection = true
+        physicsBody?.collideAll()
     }
 
     // MARK: - Movement
@@ -39,5 +47,11 @@ final class EmissionNode: GridNode {
         let velocityFactor = CGPoint(x: 7.5 * CGFloat(sizePerGrid.width), y: 7.5 * CGFloat(sizePerGrid.height))
         physicsBody?.setMoveDirection(direction: direction, velocityFactor: velocityFactor)
         spriteNode.zRotation = 2 * .pi - direction.rotationInRadians
+    }
+
+    // MARK: - Emission Interactor
+    func handle(_ emission: EmissionNode) {
+        emission.removeFromParent()
+        removeFromParent()
     }
 }

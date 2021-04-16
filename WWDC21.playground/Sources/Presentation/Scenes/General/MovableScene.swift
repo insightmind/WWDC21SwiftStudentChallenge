@@ -35,7 +35,7 @@ class MovableScene: FlowableScene {
     private func addDragGesture() {
         let gestureRecognizer = UIPanGestureRecognizer()
         gestureRecognizer.addTarget(self, action: #selector(onDragGesture(_:)))
-        gestureRecognizer.minimumNumberOfTouches = 1
+        gestureRecognizer.minimumNumberOfTouches = 2
         view?.addGestureRecognizer(gestureRecognizer)
     }
     

@@ -1,6 +1,6 @@
 import SpriteKit
 
-final class GridWorldNode: SKNode {
+final class GridWorldNode: SKNode, GridPlacementReference {
     // MARK: - Properties
     private let world: GridWorld
     var realSize: CGSize { .init(width: CGFloat(world.size.width) * sizePerGrid.width, height: sizePerGrid.height * CGFloat(world.size.height)) }
@@ -41,7 +41,8 @@ final class GridWorldNode: SKNode {
         previousElements.forEach { element in
             let position = self.position(of: element)
             element.removeFromParent()
-            placeElement(element, at: position)
+            element.position = realPosition(for: position)
+            placeElement(element)
         }
 
         children.forEach { child in
@@ -53,7 +54,7 @@ final class GridWorldNode: SKNode {
     // MARK: - Level Loading
     func loadLevel(_ level: Level) {
         level.allElements.forEach { element in
-            self.placeElement(element.generateNode(), at: element.position)
+            self.placeElement(element.generateNode(using: self))
         }
     }
 
@@ -63,16 +64,15 @@ final class GridWorldNode: SKNode {
     }
 
     // MARK: - Element Placement
-    private func placeElement(_ element: GridNode, at position: GridPosition) {
+    private func placeElement(_ element: GridNode) {
         addChild(element)
-        element.position = realPosition(for: position)
         element.sizePerGrid = sizePerGrid
         element.gridWorld = self
         elements.append(element)
     }
 
     // MARK: - Helper Methods
-    private func realPosition(for gridPosition: GridPosition) -> CGPoint {
+    internal func realPosition(for gridPosition: GridPosition) -> CGPoint {
         return .init(
             x: realSize.width * CGFloat(gridPosition.xIndex) / CGFloat(world.size.width) - sizePerGrid.width / 2,
             y: realSize.height * CGFloat(gridPosition.yIndex) / CGFloat(world.size.height) - sizePerGrid.height / 2
@@ -81,8 +81,8 @@ final class GridWorldNode: SKNode {
 }
 
 extension GridWorldNode: GridWorldReference {
-    func emitQuantum(from emitterPosition: GridPosition, using direction: GridDirection) {
-        let emission = EmissionNode()
+    func emitQuantum(from emitterPosition: GridPosition, using direction: GridDirection, group: GridInteractionGroup) {
+        let emission = EmissionNode(group: group)
         let realEmitterPosition = realPosition(for: emitterPosition)
         let realEmissionPosition: CGPoint = .init(x: realEmitterPosition.x + direction.vector.dx * 10, y: realEmitterPosition.y + direction.vector.dy * 10)
         emission.position = realEmissionPosition

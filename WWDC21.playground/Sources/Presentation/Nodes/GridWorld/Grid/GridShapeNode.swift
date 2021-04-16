@@ -25,6 +25,7 @@ final class GridShapeNode: SKNode, EmissionInteractor {
         super.init()
 
         layoutNode()
+        isUserInteractionEnabled = false
     }
 
     @available(*, unavailable)

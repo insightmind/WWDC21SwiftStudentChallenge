@@ -17,7 +17,7 @@ public struct QuantumControlGame: View {
     public var body: some View {
         ZStack {
             SpriteView(scene: scene)
-                .frame(width: QuantumControlGame.viewSize.width, height: QuantumControlGame.viewSize.width)
+                .frame(idealWidth: QuantumControlGame.viewSize.width, maxWidth: .infinity, idealHeight: QuantumControlGame.viewSize.height,  maxHeight: .infinity)
                 .ignoresSafeArea()
         }
     }

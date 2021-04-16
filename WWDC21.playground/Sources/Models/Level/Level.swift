@@ -23,6 +23,9 @@ struct Level: Codable {
             case let .mirror(node):
                 return node
 
+            case let .movableMirror(node):
+                return node
+
             case let .wall(node):
                 return node
             }
