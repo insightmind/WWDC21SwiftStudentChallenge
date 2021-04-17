@@ -57,6 +57,6 @@ PlaygroundPage.current.setLiveView(game)
  # Background Music:
 
  Indigo Heart by Daniel Birch is licensed under a Attribution-NonCommercial 4.0 International License.
- The material has not been altered or remixed. https://freemusicarchive.org/music/Daniel_Birch/indigo/daniel-birch-indigo-heart
+ The material has not been modified or remixed. https://freemusicarchive.org/music/Daniel_Birch/indigo/daniel-birch-indigo-heart
 
  */

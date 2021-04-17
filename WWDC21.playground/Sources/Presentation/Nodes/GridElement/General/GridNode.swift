@@ -6,7 +6,7 @@ class GridNode: SKNode {
 
     let size: GridSize = .init(width: 1, height: 1)
 
-    var isMuted: Bool = true
+    var isMuted: Bool = false
     var sizePerGrid: CGSize = .init(width: 50, height: 50) {
         didSet { layoutNode() }
     }

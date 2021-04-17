@@ -4,7 +4,7 @@ final class ReceiverNode: EmissionInteractingNode {
     // MARK: - Subnodes
     private let indicatorNode: SKSpriteNode = SKSpriteNode(imageNamed: "Images/Nodes/Receiver-Body-Indicator")
     private let timeout: TimeInterval = 2
-    private var lastReceived: DispatchTime = .now()
+    private var lastReceived: DispatchTime?
 
     // MARK: - Initialization
     init(receiveFrom receiveDirection: GridDirection, group: GridInteractionGroup) {
@@ -50,10 +50,12 @@ final class ReceiverNode: EmissionInteractingNode {
     }
 
     override func onTick(tickCount: Int) {
+        guard let lastReceived = lastReceived else { return }
         let distance = DispatchTime.now().uptimeNanoseconds - lastReceived.uptimeNanoseconds
         let seconds = TimeInterval(distance / 1_000_000_000)
 
         guard seconds > timeout else { return }
         gridWorld?.setGroup(self.group, isEnabled: false)
+        self.lastReceived = nil
     }
 }

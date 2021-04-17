@@ -1,0 +1,257 @@
+{
+  "world" : {
+    "size" : {
+      "width" : 13,
+      "height" : 13
+    }
+  },
+  "elements" : [
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 3
+        },
+        "emissionGroup" : "red"
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 13,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 1,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "green",
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "yellow",
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "yellow",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "yellow",
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "green",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "right",
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 5
+        },
+        "receiveGroup" : "red"
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "left"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 4,
+            "xIndex" : 12
+          },
+          "initialProgress" : 1
+        },
+        "emissionGroup" : "yellow",
+        "position" : {
+          "yIndex" : 13,
+          "xIndex" : 12
+        },
+        "emitDirections" : [
+          "leftDown"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "rightUp"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 6,
+            "xIndex" : 3
+          },
+          "initialProgress" : 0
+        },
+        "emissionGroup" : "green",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 3
+        },
+        "emitDirections" : [
+          "up"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "down"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 7,
+            "xIndex" : 2
+          },
+          "initialProgress" : 0
+        },
+        "emissionGroup" : "yellow",
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 5
+        },
+        "emitDirections" : [
+          "right"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "left"
+        ],
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 10
+        },
+        "emitDirections" : [
+          "down"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "up"
+        ],
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 10
+        },
+        "emitDirections" : [
+          "left"
+        ]
+      }
+    }
+  ]
+}

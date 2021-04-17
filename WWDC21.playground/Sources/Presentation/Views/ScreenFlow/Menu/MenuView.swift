@@ -5,7 +5,7 @@ protocol MenuViewDelegate: AnyObject {
     func didSelectAudio(isSoundEnabled: Bool)
 }
 
-final class MenuView: BlurBackgroundView {
+final class MenuView: UIView {
     // MARK: - Subtypes
     private enum Constants {
         static let playString: String = "Play"
@@ -37,10 +37,15 @@ final class MenuView: BlurBackgroundView {
     }
 
     // MARK: - Initialization
-    init(delegate: MenuViewDelegate) {
+    init(delegate: MenuViewDelegate?) {
         self.delegate = delegate
-        super.init()
+        super.init(frame: .zero)
         configureView()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Configuration
@@ -52,21 +57,21 @@ final class MenuView: BlurBackgroundView {
     private func configureImageView() {
         imageView.contentMode = .scaleAspectFit
 
-        contentView.addSubview(imageView)
+        addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -100).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -100).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 350).isActive = true
     }
 
     private func configureStackView() {
-        contentView.addSubview(stackView)
+        addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
-        stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -200).isActive = true
         stackView.heightAnchor.constraint(equalToConstant: 51).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
     // MARK: - Actions

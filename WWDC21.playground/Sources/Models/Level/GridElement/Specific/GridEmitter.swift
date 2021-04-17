@@ -9,7 +9,7 @@ struct GridEmitter: GridElement {
     var movableOption: GridMovableOption?
 
     func generateNode(using world: GridPlacementReference) -> GridNode {
-        let node = StaticEmitterNode(emitTo: emitDirection)
+        let node = EmitterNode(emitTo: emitDirection)
         node.group = emissionGroup
         node.position = world.realPosition(for: position)
         return node

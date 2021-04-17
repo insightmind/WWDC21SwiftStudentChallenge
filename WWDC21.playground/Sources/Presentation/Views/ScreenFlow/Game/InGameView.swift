@@ -68,6 +68,11 @@ final class InGameView: UIView {
     private func didSelectAudioButton() {
         AudioManager.shared.isMusicPlaying.toggle()
         delegate?.didSelectAudio(isSoundEnabled: AudioManager.shared.isMusicPlaying)
+        reloadAudioButton()
+    }
+
+    // MARK: - Methods
+    func reloadAudioButton() {
         toggleAudioButton.setIcon(AudioManager.shared.isMusicPlaying ? Constants.soundOnIconName : Constants.soundOffIconName)
     }
 }

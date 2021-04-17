@@ -1,0 +1,467 @@
+{
+  "world" : {
+    "size" : {
+      "width" : 13,
+      "height" : 13
+    }
+  },
+  "elements" : [
+    {
+      "type" : "emitter",
+      "element" : {
+        "emissionGroup" : "red",
+        "emitDirection" : "right",
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 2
+        },
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 12,
+            "xIndex" : 2
+          },
+          "initialProgress" : 0.5
+        }
+      }
+    },
+    {
+      "type" : "emitter",
+      "element" : {
+        "emissionGroup" : "yellow",
+        "emitDirection" : "down",
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 2
+        },
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 6,
+            "xIndex" : 4
+          },
+          "initialProgress" : 0.5
+        }
+      }
+    },
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "left",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 11
+        },
+        "emissionGroup" : "green"
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 13,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 12
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 12
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "blue",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "blue",
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 3
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "green",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 9
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "green",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 10
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "green",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 9
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 10
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 3
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "groupWall",
+      "element" : {
+        "group" : "red",
+        "position" : {
+          "yIndex" : 1,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "right",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 3
+        },
+        "receiveGroup" : "green"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "down",
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 10
+        },
+        "receiveGroup" : "red"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "down",
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 7
+        },
+        "receiveGroup" : "red"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "leftUp",
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 8
+        },
+        "receiveGroup" : "blue"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "right",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 8
+        },
+        "receiveGroup" : "blue"
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "left",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 12
+        },
+        "receiveGroup" : "yellow"
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "left"
+        ],
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 3
+        },
+        "emitDirections" : [
+          "rightDown"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "down"
+        ],
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 10
+        },
+        "emitDirections" : [
+          "up"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "right"
+        ],
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 7
+        },
+        "emitDirections" : [
+          "up",
+          "left"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "leftUp"
+        ],
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 10
+        },
+        "emitDirections" : [
+          "up"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "left"
+        ],
+        "emissionGroup" : "blue",
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 7
+        },
+        "emitDirections" : [
+          "rightDown"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "down"
+        ],
+        "emissionGroup" : "blue",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 10
+        },
+        "emitDirections" : [
+          "left",
+          "up",
+          "right"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "left"
+        ],
+        "emissionGroup" : "yellow",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 11
+        },
+        "emitDirections" : [
+          "right"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "right"
+        ],
+        "emissionGroup" : "green",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 5
+        },
+        "emitDirections" : [
+          "left"
+        ]
+      }
+    }
+  ]
+}

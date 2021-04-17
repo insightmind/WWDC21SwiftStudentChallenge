@@ -6,6 +6,11 @@ final class GridMovableNode: GridNode, GridInteractable {
     private let secondPoint: CGPoint
     private var slideProgress: CGFloat
 
+    override var isMuted: Bool {
+        get { childNode.isMuted }
+        set { childNode.isMuted = newValue }
+    }
+
     // MARK: - Subnodes
     private let firstAnchorNode: SKShapeNode = .init(circleOfRadius: 5)
     private let secondAnchorNode: SKShapeNode = .init(circleOfRadius: 5)
@@ -38,6 +43,7 @@ final class GridMovableNode: GridNode, GridInteractable {
         connectionNode.lineWidth = 4
         connectionNode.alpha = 0.2
         connectionNode.blendMode = .replace
+        connectionNode.zPosition = -10
         addChild(connectionNode)
 
         addChild(firstAnchorNode)
@@ -45,12 +51,14 @@ final class GridMovableNode: GridNode, GridInteractable {
         firstAnchorNode.fillColor = .white
         firstAnchorNode.alpha = 0.2
         firstAnchorNode.blendMode = .replace
+        firstAnchorNode.zPosition = -10
 
         addChild(secondAnchorNode)
         secondAnchorNode.position = secondPoint - position
         secondAnchorNode.fillColor = .white
         secondAnchorNode.alpha = 0.2
         secondAnchorNode.blendMode = .replace
+        secondAnchorNode.zPosition = -10
 
         addChild(childNode)
     }

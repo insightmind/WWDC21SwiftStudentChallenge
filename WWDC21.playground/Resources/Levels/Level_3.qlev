@@ -1,0 +1,177 @@
+{
+  "world" : {
+    "size" : {
+      "width" : 13,
+      "height" : 13
+    }
+  },
+  "elements" : [
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "down",
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 3
+        },
+        "emissionGroup" : "yellow"
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 13,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 1,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "down",
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 11
+        },
+        "receiveGroup" : "yellow"
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "up"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 4,
+            "xIndex" : 5
+          },
+          "initialProgress" : 0
+        },
+        "emissionGroup" : "purple",
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 2
+        },
+        "emitDirections" : [
+          "right"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "left"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 4,
+            "xIndex" : 10
+          },
+          "initialProgress" : 0
+        },
+        "emissionGroup" : "yellow",
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 12
+        },
+        "emitDirections" : [
+          "up"
+        ]
+      }
+    }
+  ]
+}

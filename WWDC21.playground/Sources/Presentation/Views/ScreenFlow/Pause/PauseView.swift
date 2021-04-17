@@ -1,11 +1,11 @@
 import UIKit
 
 protocol PauseViewDelegate: AnyObject {
-    func didSelectPlay()
+    func didSelectContinue()
     func didSelectAudio(isSoundEnabled: Bool)
 }
 
-final class PauseView: BlurBackgroundView {
+final class PauseView: UIView {
     // MARK: - Subtypes
     private enum Constants {
         static let pausedString: String = "Game paused!"
@@ -15,10 +15,9 @@ final class PauseView: BlurBackgroundView {
     }
 
     // MARK: - Properties
-    weak var delegate: MenuViewDelegate?
+    weak var delegate: PauseViewDelegate?
 
     // MARK: - Subviews
-    private let imageView: UIImageView = .init(image: UIImage(named: "Images/Playground/QuantumControl-Logo.png"))
     private let titleLabel: UILabel = .init()
 
     private lazy var stackView: UIStackView = {
@@ -31,7 +30,7 @@ final class PauseView: BlurBackgroundView {
 
     private lazy var pauseButton = BlurLabelButton(name: Constants.playString) { [weak self] in
         guard let self = self else { return }
-        self.delegate?.didSelectPlay()
+        self.delegate?.didSelectContinue()
     }
 
     private lazy var toggleAudioButton = BlurButton(icon: AudioManager.shared.isMusicPlaying ? Constants.soundOnIconName : Constants.soundOffIconName) { [weak self] in
@@ -40,48 +39,43 @@ final class PauseView: BlurBackgroundView {
     }
 
     // MARK: - Initialization
-    init(delegate: MenuViewDelegate) {
+    init(delegate: PauseViewDelegate) {
         self.delegate = delegate
-        super.init()
+        super.init(frame: .zero)
         configureView()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Configuration
     private func configureView() {
-        configureImageView()
+        configureTitleLabel()
         configureStackView()
-    }
-
-    private func configureImageView() {
-        imageView.contentMode = .scaleAspectFit
-
-        contentView.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -100).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 350).isActive = true
     }
 
     private func configureTitleLabel() {
         titleLabel.text = Constants.pausedString
         titleLabel.font = .systemFont(ofSize: 60, weight: .bold)
+        titleLabel.textColor = .white
         titleLabel.textAlignment = .center
 
-        contentView.addSubview(titleLabel)
+        addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -100).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
     private func configureStackView() {
-        contentView.addSubview(stackView)
+        addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
-        stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -200).isActive = true
         stackView.heightAnchor.constraint(equalToConstant: 51).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
     // MARK: - Actions

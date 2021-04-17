@@ -100,7 +100,7 @@ final class GridWorldNode: SKNode, GridPlacementReference {
 extension GridWorldNode: GridWorldReference {
     func emitQuantum(from position: CGPoint, using direction: GridDirection, group: GridInteractionGroup) {
         let emission = EmissionNode(group: group)
-        let realEmissionPosition: CGPoint = .init(x: position.x + direction.vector.dx * 10, y: position.y + direction.vector.dy * 10)
+        let realEmissionPosition: CGPoint = .init(x: position.x + direction.vector.dx * 40, y: position.y + direction.vector.dy * 40)
         emission.position = realEmissionPosition
         emission.sizePerGrid = sizePerGrid
         emission.gridWorld = self

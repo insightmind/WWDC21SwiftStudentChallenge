@@ -1,0 +1,711 @@
+{
+  "world" : {
+    "size" : {
+      "width" : 13,
+      "height" : 13
+    }
+  },
+  "elements" : [
+    {
+      "type" : "emitter",
+      "element" : {
+        "emitDirection" : "left",
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 12
+        },
+        "emissionGroup" : "red"
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 3,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 2
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 3
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 5
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 9
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 10
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 12,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 11
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 10
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 9
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 5
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 4,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 4
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 5
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 10,
+          "xIndex" : 9
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 9
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 9
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 9
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 9
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 8
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 6,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 6
+        }
+      }
+    },
+    {
+      "type" : "wall",
+      "element" : {
+        "position" : {
+          "yIndex" : 8,
+          "xIndex" : 7
+        }
+      }
+    },
+    {
+      "type" : "receiver",
+      "element" : {
+        "receiveDirection" : "up",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 7
+        },
+        "receiveGroup" : "red"
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "right"
+        ],
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 7
+        },
+        "emitDirections" : [
+          "down"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "up"
+        ],
+        "emissionGroup" : "green",
+        "position" : {
+          "yIndex" : 7,
+          "xIndex" : 8
+        },
+        "emitDirections" : [
+          "left"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "left"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 8,
+            "xIndex" : 8
+          },
+          "initialProgress" : 1
+        },
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 8
+        },
+        "emitDirections" : [
+          "down"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "down"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 9,
+            "xIndex" : 7
+          },
+          "initialProgress" : 1
+        },
+        "emissionGroup" : "green",
+        "position" : {
+          "yIndex" : 9,
+          "xIndex" : 5
+        },
+        "emitDirections" : [
+          "right"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "right"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 8,
+            "xIndex" : 5
+          },
+          "initialProgress" : 1
+        },
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 5
+        },
+        "emitDirections" : [
+          "up"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "up"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 5,
+            "xIndex" : 6
+          },
+          "initialProgress" : 1
+        },
+        "emissionGroup" : "green",
+        "position" : {
+          "yIndex" : 5,
+          "xIndex" : 10
+        },
+        "emitDirections" : [
+          "left"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "left"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 6,
+            "xIndex" : 10
+          },
+          "initialProgress" : 1
+        },
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 10
+        },
+        "emitDirections" : [
+          "down"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "down"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 11,
+            "xIndex" : 9
+          },
+          "initialProgress" : 1
+        },
+        "emissionGroup" : "green",
+        "position" : {
+          "yIndex" : 11,
+          "xIndex" : 3
+        },
+        "emitDirections" : [
+          "right"
+        ]
+      }
+    },
+    {
+      "type" : "transmitter",
+      "element" : {
+        "receiveDirections" : [
+          "right"
+        ],
+        "movableOption" : {
+          "secondPosition" : {
+            "yIndex" : 10,
+            "xIndex" : 3
+          },
+          "initialProgress" : 1
+        },
+        "emissionGroup" : "red",
+        "position" : {
+          "yIndex" : 2,
+          "xIndex" : 3
+        },
+        "emitDirections" : [
+          "up"
+        ]
+      }
+    }
+  ]
+}

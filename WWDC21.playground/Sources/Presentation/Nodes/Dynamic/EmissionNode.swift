@@ -34,11 +34,11 @@ final class EmissionNode: GridNode, EmissionInteractor {
     override func layoutNode() {
         spriteNode.size = sizePerGrid
 
-        physicsBody = .init(rectangleOf: .init(width: sizePerGrid.width, height: sizePerGrid.height / 8))
+        physicsBody = .init(rectangleOf: .init(width: sizePerGrid.width / 4, height: sizePerGrid.height / 8))
         physicsBody?.affectedByGravity = false
         physicsBody?.friction = 0
         physicsBody?.allowsRotation = false
-        physicsBody?.usesPreciseCollisionDetection = false
+        physicsBody?.usesPreciseCollisionDetection = true
         physicsBody?.collideAll()
     }
 

@@ -29,7 +29,7 @@ final class GroupWallNode: GridNode, EmissionInteractor, GroupUpdatable {
 
     override func layoutNode() {
         spriteNode.size = sizePerGrid
-        physicsBody = .init(rectangleOf: sizePerGrid)
+        physicsBody = .init(rectangleOf: .init(width: 3 * sizePerGrid.width / 4, height: 3 * sizePerGrid.height / 4))
         physicsBody?.affectedByGravity = false
         physicsBody?.isDynamic = false
         physicsBody?.collideAll()

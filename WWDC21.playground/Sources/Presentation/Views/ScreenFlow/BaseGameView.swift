@@ -7,13 +7,15 @@ public class BaseGameView: UIView {
         didSet { didUpdateGameState() }
     }
 
+    private let initialLevel: AvailableLevels = .level(index: 6)
     private let viewSize: CGSize = CGSize(width: 750, height: 750)
     private lazy var scene: SimulationScene = .init(size: viewSize, level: .level(index: 1))
 
     // MARK: - Subviews
     private let spriteKitView: SKView = .init()
     private let inGameView: InGameView = .init()
-    private var blurView: BlurBackgroundView?
+    private let blurView: BlurBackgroundView = .init()
+    private var interfaceView: UIView?
 
     // MARK: - LifeCycle
     override init(frame: CGRect = .init(origin: .zero, size: CGSize(width: 750, height: 750))) {
@@ -33,6 +35,7 @@ public class BaseGameView: UIView {
 
         configureSpriteKitView()
         configureIngameView()
+        configureBlurView()
         didUpdateGameState(animated: false)
     }
 
@@ -61,11 +64,7 @@ public class BaseGameView: UIView {
         inGameView.delegate = self
     }
 
-    // MARK: - Animations
-    private func transitionToHiddenGame(animated: Bool, blurView: BlurBackgroundView) {
-        blurView.isHidden = false
-        blurView.contentView.alpha = 0
-
+    private func configureBlurView() {
         addSubview(blurView)
         blurView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -73,37 +72,63 @@ public class BaseGameView: UIView {
         blurView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         blurView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         blurView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
 
-        self.blurView = blurView
+    // MARK: - Animations
+    private func transitionToHiddenGame(animated: Bool, interfaceView: UIView) {
+        guard self.interfaceView == nil else {
+            UIView.animate(withDuration: animated ? 0.7 : 0.0, delay: 0.0, options: .curveEaseIn) {
+                self.interfaceView?.alpha = 0.0
+            } completion: { [weak self] _ in
+                self?.interfaceView?.removeFromSuperview()
+                self?.interfaceView = nil
+                self?.transitionToHiddenGame(animated: true, interfaceView: interfaceView)
+            }
+
+            return
+        }
+
+        blurView.isHidden = false
+        blurView.contentView.addSubview(interfaceView)
+        interfaceView.translatesAutoresizingMaskIntoConstraints = false
+
+        interfaceView.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor).isActive = true
+        interfaceView.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor).isActive = true
+        interfaceView.topAnchor.constraint(equalTo: blurView.contentView.topAnchor).isActive = true
+        interfaceView.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor).isActive = true
+
+        self.interfaceView = interfaceView
 
         UIView.animate(withDuration: animated ? 0.7 : 0.0, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseIn) {
             self.spriteKitView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-            self.blurView?.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-            self.blurView?.contentView.alpha = 1.0
+            self.blurView.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+            self.blurView.contentView.alpha = 1.0
             self.inGameView.transform = CGAffineTransform(translationX: 0, y: -100)
         } completion: { _ in }
     }
 
-    private func transitionToInteractableGame(animated: Bool) {
+    private func transitionToInteractableGame(animated: Bool, interfaceView: UIView?) {
         UIView.animate(withDuration: animated ? 0.7 : 0.0, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseOut) {
             self.spriteKitView.transform = .identity
-            self.blurView?.effect = nil
-            self.blurView?.contentView.alpha = 0.0
+            self.blurView.effect = nil
+            self.blurView.contentView.alpha = 0.0
             self.inGameView.transform = .identity
         } completion: { _ in
-            self.blurView?.isHidden = true
-            self.blurView?.removeFromSuperview()
-            self.blurView = nil
+            self.blurView.isHidden = true
+            self.interfaceView?.removeFromSuperview()
+            self.interfaceView = nil
             self.spriteKitView.isPaused = false
         }
     }
 
     private func loadLevel(_ level: AvailableLevels) {
+        let oldScene = scene
         scene = SimulationScene(size: viewSize, level: level)
         scene.onCompletion = { [weak self] level in
             self?.didCompleteLevel(level: level)
         }
 
+        scene.isMuted = oldScene.isMuted
         spriteKitView.presentScene(scene, transition: .crossFade(withDuration: 0.5))
     }
 
@@ -112,17 +137,17 @@ public class BaseGameView: UIView {
         switch gameState {
         case .game:
             scene.isPaused = false
-            transitionToInteractableGame(animated: animated)
+            transitionToInteractableGame(animated: animated, interfaceView: self.interfaceView)
 
         case .menu:
-            transitionToHiddenGame(animated: animated, blurView: MenuView(delegate: self))
+            transitionToHiddenGame(animated: animated, interfaceView: MenuView(delegate: self))
 
         case .pause:
             scene.isPaused = true
-            transitionToHiddenGame(animated: animated, blurView: PauseView(delegate: self))
+            transitionToHiddenGame(animated: animated, interfaceView: PauseView(delegate: self))
 
         case .finish:
-            transitionToHiddenGame(animated: animated, blurView: FinishView(title: "Finished all levels"))
+            transitionToHiddenGame(animated: animated, interfaceView: FinishView())
 
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
                 self?.loadLevel(.level(index: 1))
@@ -133,7 +158,7 @@ public class BaseGameView: UIView {
             }
 
         case let .levelName(level):
-            transitionToHiddenGame(animated: animated, blurView: LevelNameView(title: level.name))
+            transitionToHiddenGame(animated: animated, interfaceView: LevelNameView(title: level.name))
 
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
                 self?.loadLevel(level)
@@ -158,12 +183,16 @@ public class BaseGameView: UIView {
 }
 
 // MARK: - Delegates
-extension BaseGameView: InGameViewDelegate, MenuViewDelegate {
+extension BaseGameView: InGameViewDelegate, MenuViewDelegate, PauseViewDelegate {
     func didSelectPause() {
         gameState = .pause
     }
 
     func didSelectPlay() {
+        gameState = .levelName(level: initialLevel)
+    }
+
+    func didSelectContinue() {
         gameState = .game
     }
 
@@ -173,6 +202,7 @@ extension BaseGameView: InGameViewDelegate, MenuViewDelegate {
 
     func didSelectAudio(isSoundEnabled: Bool) {
         scene.isMuted = !isSoundEnabled
+        inGameView.reloadAudioButton()
     }
 }
 

@@ -28,8 +28,4 @@ class MirrorSpriteNode: GridNode, EmissionInteractor {
     func handle(_ emission: EmissionNode) {
         emission.setMovement(direction: .left)
     }
-
-    private func updatePhysicsBody() {
-        let normalVector = CGPoint(x: 1, y: 0)
-    }
 }
