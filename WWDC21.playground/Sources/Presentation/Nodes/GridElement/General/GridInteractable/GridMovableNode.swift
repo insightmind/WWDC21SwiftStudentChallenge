@@ -72,23 +72,14 @@ final class GridMovableNode: GridNode, GridInteractable {
     func onTouchUp(at location: CGPoint) {
         guard childNode.contains(location - position) else { return }
         updatePosition(for: location)
-
-        guard let interactableChild = childNode as? GridInteractable else { return }
-        interactableChild.onTouchUp(at: location)
     }
 
     func onTouchDown(at location: CGPoint) {
         updatePosition(for: location)
-
-        guard let interactableChild = childNode as? GridInteractable else { return }
-        interactableChild.onTouchDown(at: location)
     }
 
     func onTouchMove(at location: CGPoint) {
         updatePosition(for: location)
-
-        guard let interactableChild = childNode as? GridInteractable else { return }
-        interactableChild.onTouchMove(at: location)
     }
 
     private func updatePosition(for touchLocation: CGPoint) {

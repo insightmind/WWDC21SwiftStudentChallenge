@@ -1,6 +1,6 @@
 import SpriteKit
 
-class MirrorNode: GridNode {
+class MirrorNode: GridNode, GridInteractable {
     // MARK: - Subnodes
     let spriteNode = MirrorSpriteNode()
     let node: SKShapeNode = .init()
@@ -28,7 +28,6 @@ class MirrorNode: GridNode {
     }
 
     func onTouchDown(at location: CGPoint) {
-        guard spriteNode.contains(location - position) else { return }
         let rotateAction = SKAction.rotate(byAngle: .pi / 4, duration: 0.2)
         rotateAction.timingMode = .easeInEaseOut
 

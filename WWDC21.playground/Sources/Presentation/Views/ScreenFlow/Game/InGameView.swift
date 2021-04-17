@@ -7,6 +7,14 @@ protocol InGameViewDelegate: AnyObject {
 }
 
 final class InGameView: UIView {
+    // MARK: - Subtypes
+    private enum Constants {
+            static let pauseIconName: String = "pause.fill"
+            static let resetIconName: String = "arrow.clockwise"
+            static let soundOffIconName: String = "speaker.slash.fill"
+            static let soundOnIconName: String = "speaker.wave.2.fill"
+        }
+
     // MARK: - Properties
     weak var delegate: InGameViewDelegate?
 
@@ -19,19 +27,19 @@ final class InGameView: UIView {
         return view
     }()
 
-    private lazy var pauseButton = BlurButton(icon: "pause.fill") { [weak self] in
+    private lazy var pauseButton = BlurButton(icon: Constants.pauseIconName) { [weak self] in
         guard let self = self else { return }
         self.delegate?.didSelectPause()
     }
 
-    private lazy var reloadButton = BlurButton(icon: "arrow.clockwise") { [weak self] in
+    private lazy var reloadButton = BlurButton(icon: Constants.resetIconName) { [weak self] in
         guard let self = self else { return }
         self.delegate?.didSelectReload()
     }
 
-    private lazy var toggleAudioButton = BlurButton(icon: "pause.fill") { [weak self] in
+    private lazy var toggleAudioButton = BlurButton(icon: AudioManager.shared.isMusicPlaying ? Constants.soundOnIconName : Constants.soundOffIconName) { [weak self] in
         guard let self = self else { return }
-        self.delegate?.didSelectAudio(isSoundEnabled: .random())
+        self.didSelectAudioButton()
     }
 
     // MARK: - Initialization
@@ -50,10 +58,17 @@ final class InGameView: UIView {
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
+
+    // MARK: - Actions
+    private func didSelectAudioButton() {
+        AudioManager.shared.isMusicPlaying.toggle()
+        delegate?.didSelectAudio(isSoundEnabled: AudioManager.shared.isMusicPlaying)
+        toggleAudioButton.setIcon(AudioManager.shared.isMusicPlaying ? Constants.soundOnIconName : Constants.soundOffIconName)
     }
 }
 

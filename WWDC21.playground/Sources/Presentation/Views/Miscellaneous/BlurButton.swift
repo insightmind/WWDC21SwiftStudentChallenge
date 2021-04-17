@@ -58,6 +58,13 @@ final class BlurButton: UIView {
         iconView.widthAnchor.constraint(equalTo: iconView.heightAnchor).isActive = true
     }
 
+    // MARK: - Public Methods
+    func setIcon(_ icon: String) {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)
+        iconView.image = UIImage(systemName: icon, withConfiguration: configuration)?.withTintColor(.white)
+        iconView.tintColor = .white
+    }
+
     // MARK: - Interaction
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)

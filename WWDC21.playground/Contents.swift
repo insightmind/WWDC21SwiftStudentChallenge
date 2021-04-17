@@ -30,8 +30,7 @@
 
  ### Mirror
  ![Mirror](Images/Nodes/Mirror-Both-Sides.png width="100")
- Now you come to play. You can rotate a mirror by tapping or clicking it. Rotating a mirror will cause colliding light to be deflected to another direction.
- Most mirrors are also allowed to be moved. You can see this by the line behind the mirror. To move a mirror along the line simply drag the mirror with your finger or your mouse.
+ Now you come to play. You can rotate a mirror by tapping or clicking it. Rotating a mirror will cause colliding light to be deflected to another direction..
 
  ---
 
@@ -53,3 +52,11 @@ import PlaygroundSupport
 // Let's Play
 let game = QuantumControlGame()
 PlaygroundPage.current.setLiveView(game)
+
+/*:
+ # Background Music:
+
+ Indigo Heart by Daniel Birch is licensed under a Attribution-NonCommercial 4.0 International License.
+ The material has not been altered or remixed. https://freemusicarchive.org/music/Daniel_Birch/indigo/daniel-birch-indigo-heart
+
+ */

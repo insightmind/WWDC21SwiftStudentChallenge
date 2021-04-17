@@ -13,5 +13,7 @@ public class QuantumControlGame: PlaygroundLiveViewable {
     /// Use this view to present the game.
     private lazy var view: BaseGameView = BaseGameView()
 
-    public init() { /* Nothing special */ }
+    public init() {
+        AudioManager.shared.isMusicPlaying = true
+    }
 }

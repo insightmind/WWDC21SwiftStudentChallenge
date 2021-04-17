@@ -90,8 +90,10 @@ final class GridWorldNode: SKNode, GridPlacementReference {
     }
 
     private func didUpdateMuteSettings() {
-        children.forEach { ($0 as? GridNode)?.isMuted = isMuted }
-        print("Is muted: \(isMuted)")
+        children.forEach { child in
+            guard let node = child as? GridNode else { return }
+            node.isMuted = isMuted
+        }
     }
 }
 
