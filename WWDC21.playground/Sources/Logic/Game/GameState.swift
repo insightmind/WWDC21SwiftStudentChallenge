@@ -3,7 +3,7 @@
 import Foundation
 
 enum GameState {
-    case levelName
+    case levelName(level: AvailableLevels)
     case pause
     case game
     case menu
