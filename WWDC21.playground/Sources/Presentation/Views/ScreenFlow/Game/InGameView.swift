@@ -9,11 +9,11 @@ protocol InGameViewDelegate: AnyObject {
 final class InGameView: UIView {
     // MARK: - Subtypes
     private enum Constants {
-            static let pauseIconName: String = "pause.fill"
-            static let resetIconName: String = "arrow.clockwise"
-            static let soundOffIconName: String = "speaker.slash.fill"
-            static let soundOnIconName: String = "speaker.wave.2.fill"
-        }
+        static let pauseIconName: String = "pause.fill"
+        static let resetIconName: String = "arrow.counterclockwise"
+        static let soundOffIconName: String = "speaker.slash.fill"
+        static let soundOnIconName: String = "speaker.wave.2.fill"
+    }
 
     // MARK: - Properties
     weak var delegate: InGameViewDelegate?

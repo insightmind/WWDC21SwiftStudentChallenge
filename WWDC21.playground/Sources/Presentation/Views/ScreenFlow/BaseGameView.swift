@@ -1,14 +1,14 @@
 import UIKit
 import SpriteKit
 
-public class BaseGameView: UIView, InGameViewDelegate {
+public class BaseGameView: UIView {
     // MARK: - Properties
     private var gameState: GameState = .menu {
         didSet { didUpdateGameState() }
     }
 
     private let viewSize: CGSize = CGSize(width: 750, height: 750)
-    private lazy var scene: SimulationScene = .init(size: viewSize, level: .debug1)
+    private lazy var scene: SimulationScene = .init(size: viewSize, level: .level(index: 1))
 
     // MARK: - Subviews
     private let spriteKitView: SKView = .init()
@@ -33,6 +33,7 @@ public class BaseGameView: UIView, InGameViewDelegate {
 
         configureSpriteKitView()
         configureIngameView()
+        didUpdateGameState(animated: false)
     }
 
     private func configureSpriteKitView() {
@@ -107,17 +108,32 @@ public class BaseGameView: UIView, InGameViewDelegate {
     }
 
     // MARK: - Actions
-    private func didUpdateGameState() {
+    private func didUpdateGameState(animated: Bool = true) {
         switch gameState {
         case .game:
             scene.isPaused = false
-            transitionToInteractableGame(animated: true)
+            transitionToInteractableGame(animated: animated)
 
-        case .menu, .pause:
-            transitionToHiddenGame(animated: true, blurView: BlurBackgroundView())
+        case .menu:
+            transitionToHiddenGame(animated: animated, blurView: MenuView(delegate: self))
+
+        case .pause:
+            scene.isPaused = true
+            transitionToHiddenGame(animated: animated, blurView: PauseView(delegate: self))
+
+        case .finish:
+            transitionToHiddenGame(animated: animated, blurView: FinishView(title: "Finished all levels"))
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
+                self?.loadLevel(.level(index: 1))
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
+                self?.gameState = .menu
+            }
 
         case let .levelName(level):
-            transitionToHiddenGame(animated: true, blurView: LevelNameView(title: level.name))
+            transitionToHiddenGame(animated: animated, blurView: LevelNameView(title: level.name))
 
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
                 self?.loadLevel(level)
@@ -131,13 +147,24 @@ public class BaseGameView: UIView, InGameViewDelegate {
 
     private func didCompleteLevel(level: AvailableLevels) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
-            self?.gameState = .levelName(level: level.next)
+            if let next = level.next {
+                self?.gameState = .levelName(level: next)
+            } else {
+                self?.gameState = .finish
+            }
+
         }
     }
+}
 
+// MARK: - Delegates
+extension BaseGameView: InGameViewDelegate, MenuViewDelegate {
     func didSelectPause() {
         gameState = .pause
-        scene.isPaused = true
+    }
+
+    func didSelectPlay() {
+        gameState = .game
     }
 
     func didSelectReload() {

@@ -1,22 +1,19 @@
 import UIKit
 
-final class BlurButton: UIView {
+final class BlurLabelButton: UIView {
     // MARK: - Properties
-    private let configuration = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
+    private let font = UIFont.systemFont(ofSize: 30, weight: .bold)
     var onAction: () -> Void
 
     // MARK: - Subviews
     private let blurView: UIVisualEffectView = .init(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-    private let iconView: UIImageView = .init()
+    private let titleLabel: UILabel = .init()
 
     // MARK: - Initialization
-    init(icon: String, onAction: @escaping () -> Void) {
+    init(name: String, onAction: @escaping () -> Void) {
         self.onAction = onAction
         super.init(frame: .zero)
-
-        iconView.image = UIImage(systemName: icon, withConfiguration: configuration)?.withTintColor(.white)
-        iconView.tintColor = .white
-
+        titleLabel.text = name
         configureView()
     }
 
@@ -31,7 +28,7 @@ final class BlurButton: UIView {
         configureIconView()
     }
 
-    private func configureBlurView() {  
+    private func configureBlurView() {
         addSubview(blurView)
         blurView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -40,30 +37,29 @@ final class BlurButton: UIView {
         blurView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         blurView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         blurView.heightAnchor.constraint(equalToConstant: 51).isActive = true
-        blurView.widthAnchor.constraint(equalTo: blurView.heightAnchor).isActive = true
 
         blurView.layer.cornerRadius = 15
         blurView.clipsToBounds = true
     }
 
     private func configureIconView() {
-        iconView.contentMode = .scaleAspectFit
+        titleLabel.textColor = .white
+        titleLabel.textAlignment = .center
+        titleLabel.font = font
 
-        addSubview(iconView)
-        iconView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-        iconView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        iconView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        iconView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        iconView.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        iconView.widthAnchor.constraint(equalTo: iconView.heightAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
 
     // MARK: - Public Methods
-    func setIcon(_ icon: String) {
-        iconView.image = UIImage(systemName: icon, withConfiguration: configuration)?.withTintColor(.white)
-        iconView.tintColor = .white
+    func setText(_ string: String) {
+        titleLabel.text = string
     }
 
     // MARK: - Interaction

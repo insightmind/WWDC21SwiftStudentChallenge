@@ -17,13 +17,17 @@ enum AvailableLevels: Equatable {
         return try? decoder.decode(Level.self, from: data)
     }
 
-    var next: AvailableLevels {
+    var next: AvailableLevels? {
         switch self {
         case .debug1, .debug2:
             return self
 
         case let .level(index):
-            return .level(index: index + 1)
+            if index > 0 && index < 10 {
+                return .level(index: index + 1)
+            } else {
+                return nil
+            }
         }
     }
 

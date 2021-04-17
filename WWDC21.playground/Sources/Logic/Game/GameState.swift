@@ -7,4 +7,5 @@ enum GameState {
     case pause
     case game
     case menu
+    case finish
 }
