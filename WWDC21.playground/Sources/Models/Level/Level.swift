@@ -7,7 +7,7 @@ struct Level: Codable {
     // Static World elements
     let elements: [GridElementType]
 
-    // Computed Elements
+    // MARK: Computed Elements
     var allElements: [GridElement] {
         return elements.map { type in
             switch type {
@@ -31,6 +31,12 @@ struct Level: Codable {
             }
         }
     }
+
+    var groupsToFulfill: Set<GridInteractionGroup> {
+        let multiset = allElements.compactMap { $0 as? GridReceiver }.map(\.receiveGroup)
+        return .init(multiset)
+    }
+
 
     // MARK: - Initializer
     init(world: GridWorld = .init(), elements: [GridElement] = []) {

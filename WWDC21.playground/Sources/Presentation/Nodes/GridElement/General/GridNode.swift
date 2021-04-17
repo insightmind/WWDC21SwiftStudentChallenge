@@ -5,6 +5,8 @@ class GridNode: SKNode {
     weak var gridWorld: GridWorldReference?
 
     let size: GridSize = .init(width: 1, height: 1)
+
+    var isMuted: Bool = true
     var sizePerGrid: CGSize = .init(width: 50, height: 50) {
         didSet { layoutNode() }
     }

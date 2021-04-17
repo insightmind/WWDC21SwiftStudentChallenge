@@ -1,21 +1,27 @@
 import SpriteKit
 
-class MovableScene: FlowableScene {
+class MovableGameScene: SKScene {
     // MARK: - Properties
     private var previousCameraScale: CGFloat = 1.0
     private var previousCameraPosition: CGPoint = .init()
     var playableArea: CGRect = .init(x: -200, y: -200, width: 400, height: 400)
 
-    override var isUserInteractionEnabled: Bool {
-        get { return true }
-        set { /* We do not allow to change user interactability of the scene */ }
+    // MARK: - Lifecycle
+    override init(size: CGSize) {
+        super.init(size: size)
+        configureScene()
     }
 
-    // MARK: - Lifecycle
-    override func configureScene() {
-        super.configureScene()
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
+    func configureScene() {
+        isUserInteractionEnabled = true
+        backgroundColor = .white
         configureCamera()
+        listener = camera
     }
 
     override func didMove(to view: SKView) {
@@ -81,7 +87,7 @@ class MovableScene: FlowableScene {
         }
     }
 
-    private func updatePosition() {
+    func updatePosition() {
         guard let camera = camera else { return }
 
         let newXPosition: CGFloat = max(playableArea.minX + frame.width * camera.xScale / 2 - 50, min(playableArea.maxX - frame.width * camera.xScale / 2 + 50, camera.position.x))

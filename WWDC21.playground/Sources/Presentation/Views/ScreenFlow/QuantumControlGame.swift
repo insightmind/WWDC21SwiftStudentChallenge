@@ -6,17 +6,11 @@ import PlaygroundSupport
 
 public struct QuantumControlGame: View {
     // MARK: - Properties
-    private static let viewSize: CGSize = CGSize(width: 750, height: 750)
-    private var gameState: GameState = .simulation
+    private let viewSize: CGSize = CGSize(width: 750, height: 750)
 
     // MARK: - State properties
-    @State
-    private var isPaused = false
-    @State
-    private var isSoundEnabled = true
-
-    @ObservedObject
-    private var scene: SKScene = SKScene()
+    @ObservedObject private var gameStore = GameStore()
+    @ObservedObject private var scene: SimulationScene
 
     /// Use this view to present the game.
     public var body: some View {
@@ -24,47 +18,45 @@ public struct QuantumControlGame: View {
             Rectangle()
                 .foregroundColor(.black)
 
-            ZStack {
-                SpriteView(scene: scene)
-                    .frame(width: QuantumControlGame.viewSize.width, height: QuantumControlGame.viewSize.height)
-                    .ignoresSafeArea()
-
-                InGameView(isPaused: $isPaused, isSoundEnabled: $isSoundEnabled)
-            }
-            .scaleEffect(isPaused ? 0.9 : 1.0)
+            GameView(viewSize: viewSize, scene: scene, gameStore: gameStore, gameState: $gameStore.gameState)
 
             ZStack {
-                if isPaused {
-                    ZStack {
-                        BlurView(style: .systemUltraThinMaterialDark)
+                if gameStore.gameState != .game {
+                    BlurView(style: .systemUltraThinMaterialDark)
 
-                        VStack {
-                            Image(uiImage: UIImage(named: "Images/Playground/QuantumControl-Logo.png")!)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 400)
+                    switch gameStore.gameState {
+                    case .game:
+                        EmptyView()
 
-                            Button {
-                                withAnimation(.spring()) {
-                                    isPaused.toggle()
-                                }
-                            } label : {
-                                ThemeButtonContentView(iconName: "play.fill")
-                            }
-                        }
+                    case .menu:
+                        MenuView(gameState: $gameStore.gameState)
+
+                    case .pause:
+                        PauseView(gameState: $gameStore.gameState)
+
+                    case .levelName:
+                        LevelNameView(level: $gameStore.levelName, gameState: $gameStore.gameState)
                     }
                 }
             }
+            .transition(.opacity)
         }
-        .frame(width: QuantumControlGame.viewSize.width, height: QuantumControlGame.viewSize.height)
+        .animation(.default)
+        .frame(width: viewSize.width, height: viewSize.height)
     }
-
 
     // MARK: - Initialization
     /// Starts the game. You can then use the view to show it on screen.
     /// - Parameter isDebug: If true the SpriteKit debug menu is shown
     public init(isDebug: Bool = false) {
-        scene = gameState.loadScene(size: QuantumControlGame.viewSize)
-        scene.anchorPoint = .init(x: 0.5, y: 0.5)
+        scene = SimulationScene(size: viewSize)
+        scene.onCompletion = didCompleteLevel
+        scene.level = .level(index: 1)
+    }
+
+    // MARK: - Methods
+    private func didCompleteLevel(_ level: AvailableLevels) {
+        scene.level = level.next
+        gameStore.levelName = scene.level.name
     }
 }

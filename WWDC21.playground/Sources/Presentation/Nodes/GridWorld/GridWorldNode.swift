@@ -2,20 +2,22 @@ import SpriteKit
 
 final class GridWorldNode: SKNode, GridPlacementReference {
     // MARK: - Properties
+    weak var delegate: GridWorldDelegate?
     var realSize: CGSize { .init(width: CGFloat(level.world.size.width) * sizePerGrid.width, height: sizePerGrid.height * CGFloat(level.world.size.height)) }
     var sizePerGrid: CGSize = .init(width: 30, height: 30) {
-        didSet {
-            layoutWorld()
-        }
+        didSet { layoutWorld() }
+    }
+
+    var isMuted: Bool = true {
+        didSet { didUpdateMuteSettings() }
     }
 
     // MARK: - Private Properties
     private var level: Level = .init()
     private var enabledGroups: Set<GridInteractionGroup> = [] {
         didSet {
-            elements
-                .compactMap { $0 as? GroupUpdatable }
-                .forEach { $0.onGroupUpdate(enabledGroups: enabledGroups) }
+            guard oldValue != enabledGroups else { return }
+            didUpdateEnabledGroups()
         }
     }
 
@@ -65,9 +67,13 @@ final class GridWorldNode: SKNode, GridPlacementReference {
     func loadLevel(_ level: Level) {
         layoutWorld()
 
+        self.level = level
+        enabledGroups = []
         level.allElements.forEach { element in
             self.placeElement(element.generatePlaceableNode(using: self))
         }
+
+        didUpdateMuteSettings()
     }
 
     // MARK: - Game Updates
@@ -84,11 +90,27 @@ final class GridWorldNode: SKNode, GridPlacementReference {
     }
 
     // MARK: - Helper Methods
-    internal func realPosition(for gridPosition: GridPosition) -> CGPoint {
+    func realPosition(for gridPosition: GridPosition) -> CGPoint {
         return .init(
             x: realSize.width * CGFloat(gridPosition.xIndex) / CGFloat(level.world.size.width) - sizePerGrid.width / 2,
             y: realSize.height * CGFloat(gridPosition.yIndex) / CGFloat(level.world.size.height) - sizePerGrid.height / 2
         )
+    }
+
+    private func didUpdateEnabledGroups() {
+        if enabledGroups == level.groupsToFulfill {
+            delegate?.didFinishLevel()
+        }
+
+        elements.forEach { element in
+            guard let node = element as? GroupUpdatable else { return }
+            node.onGroupUpdate(enabledGroups: enabledGroups)
+        }
+    }
+
+    private func didUpdateMuteSettings() {
+        elements.forEach { $0.isMuted = isMuted }
+        print("Is muted: \(isMuted)")
     }
 }
 

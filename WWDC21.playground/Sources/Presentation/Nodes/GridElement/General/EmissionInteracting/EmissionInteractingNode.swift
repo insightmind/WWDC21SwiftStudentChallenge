@@ -43,6 +43,8 @@ class EmissionInteractingNode: GridNode, EmissionInteractor {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) { [weak self] in
             guard let self = self else { return }
             self.emitDirections.forEach { self.gridWorld?.emitQuantum(from: self.position, using: $0, group: self.group) }
+
+            guard !self.isMuted else { return }
             self.emitAudioNode.run(self.emitAction)
         }
     }

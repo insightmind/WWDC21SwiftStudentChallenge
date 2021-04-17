@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ThemeButtonContentView: View {
     let iconName: String
+    let dynamicWidth: Bool
 
     var body: some View {
         Image(systemName: iconName)

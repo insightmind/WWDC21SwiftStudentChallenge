@@ -1,13 +1,42 @@
 import Foundation
 
-enum AvailableLevels {
+enum AvailableLevels: Equatable {
     case debug1
     case debug2
 
     case level(index: Int)
-}
 
-extension AvailableLevels {
+    // MARK: - Public Properties
+    func load() -> Level? {
+        guard let path = Bundle.main.url(forResource: filePath, withExtension: FileExtension.qlev.rawValue) else { return nil }
+        guard let data = try? Data(contentsOf: path) else { return nil }
+
+        level2.printPretty()
+
+        let decoder = JSONDecoder()
+        return try? decoder.decode(Level.self, from: data)
+    }
+
+    var next: AvailableLevels {
+        switch self {
+        case .debug1, .debug2:
+            return self
+
+        case let .level(index):
+            return .level(index: index + 1)
+        }
+    }
+
+    var name: String {
+        switch self {
+        case let .level(index):
+            return "Level \(index)"
+
+        default:
+            return filename
+        }
+    }
+
     // MARK: - Private Properties
     private static let basePath: String = "Levels/"
     private var filename: String {
@@ -26,18 +55,9 @@ extension AvailableLevels {
     private var filePath: String {
         return Self.basePath + filename
     }
-}
 
-extension AvailableLevels {
-    // MARK: - Public Properties
-    func load() -> Level? {
-        guard let path = Bundle.main.url(forResource: filePath, withExtension: FileExtension.qlev.rawValue) else { return nil }
-        guard let data = try? Data(contentsOf: path) else { return nil }
-
-        level2.printPretty()
-
-        let decoder = JSONDecoder()
-        return try? decoder.decode(Level.self, from: data)
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs.filePath == rhs.filePath
     }
 }
 
