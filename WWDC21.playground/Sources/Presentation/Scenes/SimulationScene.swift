@@ -37,7 +37,6 @@ class SimulationScene: MovableGameScene, SKPhysicsContactDelegate {
         backgroundColor = .black
         scaleMode = .aspectFill
         physicsWorld.contactDelegate = self
-
         isPaused = true
 
         loadLevel(level)
@@ -65,6 +64,7 @@ class SimulationScene: MovableGameScene, SKPhysicsContactDelegate {
         gridWorld.delegate = self
 
         physicsWorld.contactDelegate = self
+        audioEngine.mainMixerNode.outputVolume = 0.2
 
         updatePosition()
     }

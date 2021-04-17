@@ -5,6 +5,7 @@ final class GridMovableNode: GridNode, GridInteractable {
     private let firstPoint: CGPoint
     private let secondPoint: CGPoint
     private var slideProgress: CGFloat
+    private var isInDrag: Bool = false
 
     override var isMuted: Bool {
         get { childNode.isMuted }
@@ -80,13 +81,17 @@ final class GridMovableNode: GridNode, GridInteractable {
     func onTouchUp(at location: CGPoint) {
         guard childNode.contains(location - position) else { return }
         updatePosition(for: location)
+        isInDrag = false
     }
 
     func onTouchDown(at location: CGPoint) {
+        guard childNode.contains(location - position) else { return }
         updatePosition(for: location)
+        isInDrag = true
     }
 
     func onTouchMove(at location: CGPoint) {
+        guard isInDrag else { return }
         updatePosition(for: location)
     }
 

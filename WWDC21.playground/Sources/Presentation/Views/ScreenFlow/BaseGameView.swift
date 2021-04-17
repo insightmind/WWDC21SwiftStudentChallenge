@@ -7,9 +7,9 @@ public class BaseGameView: UIView {
         didSet { didUpdateGameState() }
     }
 
-    private let initialLevel: AvailableLevels = .level(index: 6)
+    private let initialLevel: AvailableLevels = .level(index: 1)
     private let viewSize: CGSize = CGSize(width: 750, height: 750)
-    private lazy var scene: SimulationScene = .init(size: viewSize, level: .level(index: 1))
+    private lazy var scene: SimulationScene = .init(size: viewSize, level: .empty)
 
     // MARK: - Subviews
     private let spriteKitView: SKView = .init()

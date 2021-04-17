@@ -1,5 +1,3 @@
-// Copyright © 2020 Niklas Buelow. All rights reserved.
-
 import Foundation
 import SpriteKit
 import PlaygroundSupport

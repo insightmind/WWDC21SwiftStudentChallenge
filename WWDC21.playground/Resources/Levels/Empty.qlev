@@ -1,0 +1,9 @@
+{
+  "world" : {
+    "size" : {
+      "width" : 13,
+      "height" : 13
+    }
+  },
+  "elements" : []
+}
