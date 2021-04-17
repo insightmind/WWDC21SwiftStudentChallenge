@@ -38,7 +38,7 @@ final class EmissionNode: GridNode, EmissionInteractor {
         physicsBody?.affectedByGravity = false
         physicsBody?.friction = 0
         physicsBody?.allowsRotation = false
-        physicsBody?.usesPreciseCollisionDetection = true
+        physicsBody?.usesPreciseCollisionDetection = false
         physicsBody?.collideAll()
     }
 

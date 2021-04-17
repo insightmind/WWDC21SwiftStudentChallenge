@@ -3,8 +3,8 @@ import SpriteKit
 final class ReceiverNode: EmissionInteractingNode {
     // MARK: - Subnodes
     private let indicatorNode: SKSpriteNode = SKSpriteNode(imageNamed: "Images/Nodes/Receiver-Body-Indicator")
-    private let timeout: TimeInterval = 1.5
-    private var timer: Timer?
+    private let timeout: TimeInterval = 2
+    private var lastReceived: DispatchTime = .now()
 
     // MARK: - Initialization
     init(receiveFrom receiveDirection: GridDirection, group: GridInteractionGroup) {
@@ -44,15 +44,16 @@ final class ReceiverNode: EmissionInteractingNode {
         let sequence = SKAction.sequence([lightAction, waitAction, lightOffAction])
         indicatorNode.run(sequence)
 
-        timer?.invalidate()
+        lastReceived = .now()
         gridWorld?.setGroup(group, isEnabled: true)
-        timer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] timer in
-            timer.invalidate()
-
-            guard let self = self else { return }
-            self.gridWorld?.setGroup(self.group, isEnabled: false)
-        }
-
         super.handle(emission)
+    }
+
+    override func onTick(tickCount: Int) {
+        let distance = DispatchTime.now().uptimeNanoseconds - lastReceived.uptimeNanoseconds
+        let seconds = TimeInterval(distance / 1_000_000_000)
+
+        guard seconds > timeout else { return }
+        gridWorld?.setGroup(self.group, isEnabled: false)
     }
 }

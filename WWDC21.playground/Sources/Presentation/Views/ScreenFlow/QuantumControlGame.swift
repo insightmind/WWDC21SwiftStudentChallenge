@@ -10,7 +10,7 @@ public struct QuantumControlGame: View {
 
     // MARK: - State properties
     @ObservedObject private var gameStore = GameStore()
-    @ObservedObject private var scene: SimulationScene
+    //@ObservedObject private var scene: SimulationScene
 
     /// Use this view to present the game.
     public var body: some View {
@@ -18,7 +18,14 @@ public struct QuantumControlGame: View {
             Rectangle()
                 .foregroundColor(.black)
 
-            GameView(viewSize: viewSize, scene: scene, gameStore: gameStore, gameState: $gameStore.gameState)
+            GameView(
+                viewSize: viewSize,
+                level: $gameStore.level,
+                isPaused: $gameStore.isPaused,
+                isSoundEnabled: $gameStore.isSoundEnabled,
+                gameState: $gameStore.gameState,
+                levelName: $gameStore.levelName
+            )
 
             ZStack {
                 if gameStore.gameState != .game {
@@ -32,16 +39,14 @@ public struct QuantumControlGame: View {
                         MenuView(gameState: $gameStore.gameState)
 
                     case .pause:
-                        PauseView(gameState: $gameStore.gameState)
+                        PauseView(isPaused: $gameStore.isPaused)
 
                     case .levelName:
                         LevelNameView(level: $gameStore.levelName, gameState: $gameStore.gameState)
                     }
                 }
             }
-            .transition(.opacity)
         }
-        .animation(.default)
         .frame(width: viewSize.width, height: viewSize.height)
     }
 
@@ -49,14 +54,11 @@ public struct QuantumControlGame: View {
     /// Starts the game. You can then use the view to show it on screen.
     /// - Parameter isDebug: If true the SpriteKit debug menu is shown
     public init(isDebug: Bool = false) {
-        scene = SimulationScene(size: viewSize)
-        scene.onCompletion = didCompleteLevel
-        scene.level = .level(index: 1)
+        // TODO
     }
 
     // MARK: - Methods
     private func didCompleteLevel(_ level: AvailableLevels) {
-        scene.level = level.next
-        gameStore.levelName = scene.level.name
+        // TODO
     }
 }

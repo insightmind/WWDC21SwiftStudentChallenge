@@ -5,7 +5,7 @@ struct PauseView: View {
         static let playIconName: String = "play.fill"
     }
 
-    @Binding var gameState: GameState
+    @Binding var isPaused: Bool
 
     var body: some View {
         VStack {
@@ -17,7 +17,7 @@ struct PauseView: View {
 
             Button {
                 withAnimation {
-                    gameState = .game
+                    isPaused = false
                 }
             } label : {
                 ThemeButtonContentView(iconName: Constants.playIconName, dynamicWidth: false)

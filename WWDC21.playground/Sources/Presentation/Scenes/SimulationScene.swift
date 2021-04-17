@@ -5,13 +5,11 @@ class SimulationScene: MovableGameScene, SKPhysicsContactDelegate {
     // MARK: - Properties
     private let tickDuration: TimeInterval = 0.1
     private var tickCount: Int = 0
-    private var previousUpdateTime: TimeInterval = 0.0
+    private var timer: Timer?
 
     // MARK: - Public Properties
+    let level: AvailableLevels
     var onCompletion: ((AvailableLevels) -> Void)?
-    @Published var level: AvailableLevels = .level(index: 1) {
-        didSet { transitionLevel(to: level) }
-    }
 
     var isMuted: Bool {
         get { gridWorld.isMuted }
@@ -24,7 +22,13 @@ class SimulationScene: MovableGameScene, SKPhysicsContactDelegate {
     }
 
     // MARK: - Nodes
-    private var gridWorld: GridWorldNode = .init(sizePerGrid: .init(width: 50, height: 50))
+    private var gridWorld: GridWorldNode = .init(sizePerGrid: .init(width: 50, height: 50), level: .init())
+
+    // MARK: - Initialization
+    init(size: CGSize, level: AvailableLevels) {
+        self.level = level
+        super.init(size: size)
+    }
 
     // MARK: - Configuration
     override func configureScene() {
@@ -32,35 +36,35 @@ class SimulationScene: MovableGameScene, SKPhysicsContactDelegate {
 
         backgroundColor = .black
         scaleMode = .aspectFill
-
         physicsWorld.contactDelegate = self
 
+        isPaused = true
+
         loadLevel(level)
-    }
 
-    // MARK: - GameTick
-    override func update(_ currentTime: TimeInterval) {
-        super.update(currentTime)
+        timer = .scheduledTimer(withTimeInterval: tickDuration, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
 
-        guard currentTime - previousUpdateTime > tickDuration else { return }
-        previousUpdateTime = currentTime
-        tickCount += 1
-        gridWorld.onTick(tickCount: tickCount)
+            guard !self.isPaused else { return }
+
+            self.tickCount += 1
+            self.gridWorld.onTick(tickCount: self.tickCount)
+        }
     }
 
     // MARK: - Public Methods
     private func loadLevel(_ level: AvailableLevels) {
-        // Remove previous level
-        gridWorld.removeFromParent()
-
-        // Create new level area
-        gridWorld = .init(sizePerGrid: .init(width: 50, height: 50))
-        gridWorld.delegate = self
-        addChild(gridWorld)
-
         // Load level if possible
         guard let level = level.load() else { return }
-        gridWorld.loadLevel(level)
+        // Create new level area
+        gridWorld = .init(sizePerGrid: .init(width: 50, height: 50), level: level)
+        addChild(gridWorld)
+        gridWorld.delegate = self
+
+        physicsWorld.contactDelegate = self
 
         updatePosition()
     }

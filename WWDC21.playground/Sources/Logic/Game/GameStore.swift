@@ -1,8 +1,9 @@
+import CoreGraphics
 import Foundation
 
 class GameStore: ObservableObject {
     @Published var isSoundEnabled: Bool = false
-    @Published var isPaused: Bool = false {
+    @Published var isPaused: Bool = true {
         didSet { gameState = isPaused ? .pause : .game }
     }
 
@@ -10,4 +11,6 @@ class GameStore: ObservableObject {
     @Published var levelName: String = "" {
         didSet { gameState = .levelName }
     }
+
+    @Published var level: AvailableLevels = .debug2
 }

@@ -51,4 +51,5 @@
 import PlaygroundSupport
 
 // Let's Play
+let controller = QuantumControlGame(0)
 PlaygroundPage.current.setLiveView(QuantumControlGame())
