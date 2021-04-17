@@ -88,6 +88,7 @@ public class BaseGameView: UIView {
             return
         }
 
+        interfaceView.alpha = 0.0
         blurView.isHidden = false
         blurView.contentView.addSubview(interfaceView)
         interfaceView.translatesAutoresizingMaskIntoConstraints = false
@@ -103,6 +104,7 @@ public class BaseGameView: UIView {
             self.spriteKitView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self.blurView.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
             self.blurView.contentView.alpha = 1.0
+            self.interfaceView?.alpha = 1.0
             self.inGameView.transform = CGAffineTransform(translationX: 0, y: -100)
         } completion: { _ in }
     }
