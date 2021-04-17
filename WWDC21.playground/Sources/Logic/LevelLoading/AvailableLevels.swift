@@ -11,7 +11,7 @@ enum AvailableLevels: Equatable {
         guard let path = Bundle.main.url(forResource: filePath, withExtension: FileExtension.qlev.rawValue) else { return nil }
         guard let data = try? Data(contentsOf: path) else { return nil }
 
-        level6.printPretty()
+        level7.printPretty()
 
         let decoder = JSONDecoder()
         return try? decoder.decode(Level.self, from: data)
